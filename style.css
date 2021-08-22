@@ -13,7 +13,7 @@ html {
   font-family: Copperplate, sans-serif;
   font-size: 100%;
   background: #473edf;
-  background: linear-gradient(45deg, #473edf 0%, #2589e3 50%, #34cce2 100%);
+  background: linear-gradient(to bottom right, #0575e6, #021b79);
   overflow: hidden;
 }
 
