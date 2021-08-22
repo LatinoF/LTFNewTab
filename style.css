@@ -93,6 +93,10 @@ input[type=search]::-webkit-search-results-decoration {
   font-family: Copperplate, sans-serif;
 }
 
+.SearchBox:focus{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /* Searchbar Style Ends */
 /* Icon Style Starts */
 .icon {
@@ -191,6 +195,11 @@ input[type=search]::-webkit-search-results-decoration {
   height: 64px;
   vertical-align: middle;
   text-align: center;
+  transition: transform 0.2s;
+}
+
+.cell:hover{
+  transform: scale(1.2);
 }
 /* Table Style Ends */
 
