@@ -1,0 +1,280 @@
+*, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Body Style Start */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  min-height: 100vh;
+  font-family: Copperplate, sans-serif;
+  font-size: 100%;
+  background: #473edf;
+  background: linear-gradient(45deg, #473edf 0%, #2589e3 50%, #34cce2 100%);
+  overflow: hidden;
+}
+
+/* Body Style End */
+/* Main & Divs Styles Starts */
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  flex-flow: column nowrap;
+}
+
+/* Main & Divs Styles Ends */
+/* Searchbar Style Starts */
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-results-button,
+input[type=search]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.SearchBoxRGB {
+  width: 410px;
+  height: 56px;
+  color: white;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.SearchBoxRGB::before {
+  content: "";
+  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
+  position: absolute;
+  z-index: -1;
+  width: 500px;
+  height: 500px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 40px;
+  animation: spin 2s linear infinite;
+}
+
+.SearchBoxRGB:hover::before {
+  opacity: 1;
+}
+
+.SearchBoxRGB::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 40px;
+}
+
+.SearchBox {
+  height: 48px;
+  width: 400px;
+  border-radius: 28px;
+  text-align: center;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-family: Copperplate, sans-serif;
+}
+
+/* Searchbar Style Ends */
+/* Icon Style Starts */
+.icon {
+  width: 64px;
+  height: 64px;
+  top: 4px;
+  left: 4px;
+  position: absolute;
+}
+
+.block {
+  width: 64px;
+  height: 64px;
+  margin: 4px;
+}
+
+/* Icon Style Ends */
+/* RGB Style Starts */
+.RGB {
+  width: 72px;
+  height: 72px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  border-radius: 16px;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.RGB::before {
+  content: "";
+  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  z-index: -1;
+  width: 150%;
+  height: 150%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 16px;
+  animation: spin 2s linear infinite;
+}
+
+.RGB:hover::before {
+  opacity: 1;
+}
+
+.RGB::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 16px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* RGB Style Ends */
+/* Table Style Starts */
+#table {
+  width: 45%;
+  display: table;
+  background: rgba(0, 0, 0, 0.4);
+  border-spacing: 20px;
+  border-radius: 25px;
+  margin: 15px;
+}
+
+#Drawer {
+  width: 45%;
+  display: table;
+  background: rgba(0, 0, 0, 0.4);
+  border-spacing: 10px;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 15px;
+}
+
+.row {
+  display: table-row;
+  padding: 10px;
+}
+
+.cell {
+  display: table-cell;
+  height: 64px;
+  vertical-align: middle;
+  text-align: center;
+}
+/* Table Style Ends */
+
+a {
+  text-decoration: none;
+}
+
+.Widgets{
+  background: transparent;
+  border-radius: 18px; 
+  position: relative;
+  z-index: 0;
+  overflow:hidden ;
+}
+
+.Widgets::before {
+  content: "";
+  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
+  position: absolute;
+  z-index: -1;
+  width: 150%;
+  height: 300%;
+  top: -310px;
+  left: -180px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 40px;
+  animation: spin 2s linear infinite;
+}
+
+.Widgets:hover::before {
+  opacity: 1;
+}
+
+.Widgets::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 40px;
+}
+
+#Div1 {
+  display: block;
+  padding: 5px;
+
+}
+
+#Div2 {
+  display: none;
+  padding: 5px;
+}
+
+#Div3 {
+  display: none;
+  padding: 5px;
+}
+
+.CycleButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 64px;
+  height: 32px;
+  border-radius: 12px;
+  opacity: 0;
+  font-family: Copperplate, sans-serif;
+  background: #E6E7E7;
+  font-size: 18px;
+  text-align: center;
+  transition: 0.5s;
+  position: relative;
+  top: -96px;
+  left: 450px;
+}
+
+.CycleButton:hover {
+  opacity: 100;
+}
+
+#Nomics{
+  border-radius: 15px; 
+  overflow: hidden;
+}
