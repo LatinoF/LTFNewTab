@@ -56,7 +56,7 @@
             <div class="cell">
               <button class="RGB" type="button">
                 <a href="https://www.mail.com/int/">
-                  <img src="@Resources/Images/Mail.com.png" class="icon">
+                  <img src="@Resources/Images/Mail.png" class="icon">
                 </a>
               </button>
             </div>
@@ -113,22 +113,22 @@
             </div>
             <div class="cell">
               <button class="RGB" type="button">
-                <a href="https://www.google.it/">
-                  <img src="@Resources/Images/Google.png" class="icon">
+                <a href="https://github.com/">
+                  <img src="@Resources/Images/GitHub.png" class="icon">
                 </a>
               </button>
             </div>
             <div class="cell">
               <button class="RGB" type="button">
                 <a href="https://www.primevideo.com/">
-                  <img src="@Resources/Images/Prime Video.png" class="icon">
+                  <img src="@Resources/Images/PrimeVideo.png" class="icon">
                 </a>
               </button>
             </div>
             <div class="cell">
               <button class="RGB" type="button">
-                <a href="https://www.google.it/">
-                  <img src="@Resources/Images/Google.png" class="icon">
+                <a href="https://www.binance.com/en">
+                  <img src="@Resources/Images/Binance.png" class="icon">
                 </a>
               </button>
             </div>
@@ -140,19 +140,27 @@
           <div class="row">
             <div id="Div1" class="Widgets">
               <div id="Nomics">
-                <div class="nomics-ticker-widget" data-name="Dogecoin" data-base="DOGE" data-quote="USD"></div>
+                <div class="Overlay">
+                  <button id="Button1" onclick="switchVisible();" class="CycleButton">Cycle</Cycle></button>
+                </div>
+                  <div class="nomics-ticker-widget" data-name="Dogecoin" data-base="DOGE" data-quote="USD">
+                </div>
               </div>
             </div>
             <div id="Div2" class="Widgets">
               <div id="Nomics">
-                <div class="nomics-ticker-widget" data-name="Bitcoin" data-base="BTC" data-quote="USD"></div>
+                <div class="Overlay">
+                  <button id="Button1" onclick="switchVisible();" class="CycleButton">Cycle</button>
+                </div>
+                <div class="nomics-ticker-widget" data-name="Bitcoin" data-base="BTC" data-quote="USD">
+                </div>
               </div>
             </div>
           </div>
         </div>
       <!-- Widget Section Ends -->
     </section>  
-    <button id="Button1" onclick="switchVisible();" class="CycleButton">Cycle</button></button> <!-- Widget Cycle Button -->
+    <!-- Widget Cycle Button -->
     <!-- Scripts -->
     <script src="https://widget.nomics.com/embed.js"></script>
     <script  src="./script.js"> </script>

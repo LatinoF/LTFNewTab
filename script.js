@@ -1,26 +1,15 @@
 const f = document.getElementById('form');
 const q = document.getElementById('query');
-const google = 'https://www.google.com/search?q=site%3A+';
+const searchengine = 'https://duckduckgo.com/?q=site%3A+';
 var site = 'fanart.tv';
 
 function submitted(event) {
   event.preventDefault();
-  const url = google + site + '+' + q.value;
+  const url = searchengine + site + '+' + q.value;
   const win = window.open(url,"_self");
 }
 
 f.addEventListener('submit', submitted);
-
-$("#ImgID").click(submitted);
-
-$("#duck").click(fleps);
-	
-function fleps(event){
-	var site = '';
-  event.preventDefault();
-  const url = google + site + '+' + q.value;
-  const win = window.open(url,"_self");
-}
 
   function switchVisible() {
     	var div1=document.getElementById('Div1');
