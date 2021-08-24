@@ -1,4 +1,4 @@
 # LTFNewTab
 Just a custom new tab page [WIP]
 
-Note: Not responsive ATM, works well on a 27" desktop monitor.
+Note: Designed to work on landscape device, mostly pcs.
