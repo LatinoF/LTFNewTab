@@ -7,6 +7,11 @@ html {
   background-repeat:no-repeat;
   background-position: center center;
   background-size: cover;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none; 
 }
 
 a{
@@ -335,3 +340,4 @@ input[type=search]::-webkit-search-results-decoration {
     transform: scale3d(1, 1, 1);
   }
 }
+

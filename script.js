@@ -29,3 +29,7 @@ function switchETH(){
   document.getElementById("ETH").style.display = "block";
 }
 
+document.getElementById('NoDrag1').ondragstart = function() { return false; };
+document.getElementById('NoDrag2').ondragstart = function() { return false; };
+document.getElementById('NoDrag3').ondragstart = function() { return false; };
+
