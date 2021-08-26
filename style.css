@@ -341,3 +341,33 @@ input[type=search]::-webkit-search-results-decoration {
   }
 }
 
+
+.ContextMenu{
+  position: absolute;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 16px;
+  z-index: 30;
+  box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ContextMenu ul{
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  background: white;
+}
+
+.ContextMenu ul li{
+  padding: 8px;
+  cursor: pointer;
+}
+
+.ContextMenu ul li a{
+  color: black;
+}
+
+.ContextMenu ul li:hover{
+  background-color: rgb(225, 225, 225);
+
+}

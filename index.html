@@ -9,7 +9,13 @@
   <body>
     <section>
       <div  class="Wrapper">
-        <div class="SearchBoxRGB">
+        <div id="contextMenu" class="ContextMenu" style="display:none">
+          <ul>
+            <li onclick="swapGoogle()"><a id="aGoogle">Google</a></li>
+            <li onclick="swapTV()"><a id="aTV">Fanart.TV</a></li>
+          </ul>
+        </div>
+        <div class="SearchBoxRGB" id="EngineSwapper">
           <form role="search" id="Form">
             <input type="search" id="Query" class="SearchBox" name="Q" placeholder="Fleps & Drops"> 
           </form>
@@ -18,7 +24,7 @@
           <div class="Row">
             <div class="Tile">
               <div class="TileRGB">
-                <a href=="https://www.google.it/">
+                <a href="https://www.google.it/">
                   <img src="@Resources/Images/Google.png" class="Icon">
                 </a>
               </div>
