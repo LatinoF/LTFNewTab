@@ -1,5 +1,26 @@
-const F = document.getElementById('Form');
-const Q = document.getElementById('Query');
+window.ondragstart = function() { return false; } 
+
+document.onclick = hideMenu;
+document.onauxclick = hideMenu;
+  
+function hideMenu() {
+  document.getElementById("menu").style.display = "none"
+}
+  
+document.getElementById("EngineSwapper").oncontextmenu = function rightClick(e) {
+  e.preventDefault();
+  if (document.getElementById("menu").style.display == "block"){
+    hideMenu();
+  } else {
+      var Menu = document.getElementById("menu")
+      Menu.style.display = 'block';
+      Menu.style.left = e.pageX + "px";
+      Menu.style.top = e.pageY + "px";
+    }
+  }
+
+const F = document.getElementById('form');
+const Q = document.getElementById('query');
 const searchengine = 'https://www.google.com/search?q=';
 var Site = '';
 
@@ -10,47 +31,6 @@ function Submitted(event) {
 }
 
 F.addEventListener('submit', Submitted);
-
-function switchDOGE(){
-  document.getElementById("BTC").style.display = "none";
-  document.getElementById("ETH").style.display = "none";
-  document.getElementById("DOGE").style.display = "block";
-}
-
-function switchBTC(){
-  document.getElementById("DOGE").style.display = "none";
-  document.getElementById("ETH").style.display = "none";
-  document.getElementById("BTC").style.display = "block";
-}
-
-function switchETH(){
-  document.getElementById("DOGE").style.display = "none";
-  document.getElementById("BTC").style.display = "none";
-  document.getElementById("ETH").style.display = "block";
-}
-
-document.getElementById('NoDrag1').ondragstart = function() { return false; };
-document.getElementById('NoDrag2').ondragstart = function() { return false; };
-document.getElementById('NoDrag3').ondragstart = function() { return false; };
-
-document.onclick = hideMenu;
-document.onauxclick = hideMenu;
-  
-function hideMenu() {
-  document.getElementById("contextMenu").style.display = "none"
-}
-  
-document.getElementById("EngineSwapper").oncontextmenu = function rightClick(e) {
-  e.preventDefault();
-  if (document.getElementById("contextMenu").style.display == "block"){
-    hideMenu();
-  } else {
-      var Menu = document.getElementById("contextMenu")
-      Menu.style.display = 'block';
-      Menu.style.left = e.pageX + "px";
-      Menu.style.top = e.pageY + "px";
-    }
-  }
 
 window.onload = engineCheck();
 
@@ -65,13 +45,14 @@ function engineCheck(){
 function swapGoogle(){
   Site = '';
   localStorage.setItem('engine', 'Google');
-  document.getElementById("aGoogle").style.color = "red";
-  document.getElementById("aTV").style.color = "black";
+  document.getElementById("aGoogle").style.fontWeight = "bold";
+  document.getElementById("aTV").style.fontWeight = "normal";
 }
 
 function swapTV(){
   Site = 'site%3Afanart.tv';
   localStorage.setItem('engine', 'Fanart');
-  document.getElementById("aTV").style.color = "red";
-  document.getElementById("aGoogle").style.color = "black";
+  document.getElementById("aTV").style.fontWeight = "bold";
+  document.getElementById("aGoogle").style.fontWeight = "normal";
 }
+
