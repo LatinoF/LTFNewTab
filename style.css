@@ -1,395 +1,237 @@
-body,
-html {
-  height: 100%;
-  min-height: 100vh;
-  margin: 0;
-  background-image: url("@Resources/Images/Wallpaper.jpg");
-  background-repeat:no-repeat;
-  background-position: center center;
-  background-size: cover;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none; 
+*, *:after, *:before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-image: url(Resources/Background.jpg);
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.menu{
+  position:fixed;
+  left:0px;
+  top:-50px;
+  width: 100vw;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  transition: top 1s;
+  -webkit-transition: top 1s;
+  z-index: 1;
+}
+
+.menu:hover{
+  top:-10px;  
+}
+
+.menu span{
+  margin:20px;
+}
+
+.menu span a:hover{
+  text-shadow: -.25px -.25px 0 black, .25px .25px black;
 }
 
 a{
+  text-decoration:none;
+  text-shadow: -.25px -.25px 0 transparent, .25px .25px transparent;
+  color:black;
+  transition: all 0.3s ease-out;
+}
+
+.meteo{
+  min-width: 222px;
+  max-width: 222px;
+  min-height: 96px;
+  max-height: 96px;
+  top: -10px;
+  left: -40px;
+  position: absolute;
+  border-radius: 8px;
+  overflow: hidden;
+  transform: scale(0.7);
+  margin: 0;
+}
+.weatherwidget-io{
   text-decoration: none;
 }
 
-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  flex-flow: column;
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    flex-flow: column;
+    position: fixed;
 }
 
-input[type=search]::-webkit-search-decoration,
-input[type=search]::-webkit-search-cancel-button,
-input[type=search]::-webkit-search-results-button,
-input[type=search]::-webkit-search-results-decoration {
+.contextmenu {
+  display: flex;
   display: none;
-}
-
-.SearchBoxRGB {
-  width: 408px;
-  height: 56px;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 40px;
-  border: none;
-  outline: none;
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-  margin: 12px auto;
-  transition: transform 0.2s;
-}
-
-.SearchBoxRGB::before {
-  content: "";
-  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
   position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 750%;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 40px;
-  animation: spin 2s linear infinite;
-}
-
-.SearchBoxRGB:hover{
-  transform: scale(1.05);
-}
-
-.SearchBoxRGB:hover::before {
-  opacity: 1;
-}
-
-.SearchBoxRGB::after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-}
-
-.SearchBox {
-  height: 48px;
-  width: 400px;
-  background-color: white;
-  border-radius: 28px;
-  text-align: center;
-  outline: none;
-  border: none;
-  font-size: 18px;
-  font-family: Copperplate, sans-serif;
-}
-
-.SearchBox:focus{
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.Wrapper{
-  width: fit-content;
-}
-
-.Drawer {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 16px;
-  align-items: center;
-  padding: 8px;
-  margin: 16px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  top: 10;
+  left: 10;
+  z-index: 1;
+  width: 175px;
 }
 
-.Row {
+.contextmenu-list {
+  margin: 0;
+  display: block;
+  width: 100%;
+  padding: 8px;
+}
+.contextmenu-list, ul {
+    list-style-type: none;
+}
+.contextmenu-list{
+
+}
+.contextmenu-item {
+  position: relative;
+}
+.contextmenu-button {
+  font: inherit;
+  color: inherit;
+  outline: none;
+  border: 0;
+  padding: 8px 8px;
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #fff;
+}
+.contextmenu-button:hover {
+  background-color: #f1f3f7;
+}
+
+.searchbar{
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solidrgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
+}
+
+
+form {
+  background-color: white;
+  width: 600px;
+  height: 40px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  width: fit-content;
 }
 
-.Tile {
-  flex-grow: 0;
-  flex: 0;
-  align-self: center;
-  margin: 4px;
-  transition: transform 0.2s;
-}
-
-.Tile:hover{
-  transform: scale(1.15);
-}
-
-.TileRGB{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  z-index: 0;
-  overflow: hidden;
-  position: relative;
-  border-radius: 16px;
-}
-
-.TileRGB::before{
-  content: "";
-  position: absolute;
-  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
-  opacity: 0;
-  z-index: -1;
-  width: 150%;
-  height: 150%;
-  top: -25%;
-  left: -25%;
-  border-radius: 16px;
-  transition: opacity 0.3s ease-in-out; 
-  animation: spin 2s linear infinite;
-}
-
-.TileRGB:hover::before{
-  opacity: 1;
-}
-
-.TileRGB::after{
-  content: "";
-  position: absolute;
-  width: 100%;
+input {
+  all: unset;
+  font: 16px system-ui;
   height: 100%;
   width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  border-radius: 16px;
-  z-index: -1;
+  padding: 6px 10px;
 }
 
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+.searchbutton {
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+  cursor: pointer; 
 }
 
-.Icon{
-  display: block;
-  width:64px;
-  height: 64px;
+.drawercontainer{
+    height: 100%;
+    max-height: 248px;
+    position: relative;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.WidgetWrapper{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  border-radius: 16px;
-  padding: 12px;
-  margin: 16px;
-  background: rgba(0, 0, 0, 0.4);
-  position: relative;
-}
-.WidgetZoom{
-  max-width: 100%;
-  min-width: 100%;
-  min-height: 278px;
-  max-height: 278px;
-  transition: transform 0.2s;
-}
-.WidgetZoom:hover{
-  transform: scale(1.02);
-}
-.WidgetRGB{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 4px;
-  z-index: 0;
-  overflow: hidden;
-  position: relative;
-  border-radius: 16px;
-  max-width: 100%;
-  min-width: 100%;
-  min-height: 278px;
-  max-height: 278px;
-}
-
-.WidgetRGB::before{
-  content: "";
-  position: absolute;
-  background: conic-gradient(#fd004c, #fe9000, #fff020, #3edf4b, #3363ff, #b102b7, #fd004c);
-  opacity: 0;
-  z-index: -1;
-  width: 150%;
-  height: 300%;
-  top: -100%;
-  left: -25%;
-  border-radius: 16px;
-  transition: opacity 0.3s ease-in-out; 
-  animation: spin 2s linear infinite;
-}
-
-.WidgetRGB:hover::before{
-  opacity: 1;
-}
-
-.WidgetRGB::after{
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  border-radius: 16px;
-  z-index: -1;
-}
-
-.Widget{
-  display: block;
-  overflow: hidden;
-  border-radius: 16px;
-  max-width: 100%;
-  min-width: 100%;
-  min-height: 270px;
-  max-height: 270px;
-  filter: invert(100);
-  
-}
-
-.Cycle{
-  position: absolute;
-  display:block;
-  padding: 4px;
-  width: fit-content;
-  height: fit-content;
-  z-index: 20;
-  margin-bottom: 172px;
-  opacity: 0;
-  transition: transform 0.4s;
-}
-.Cycle:hover{
-  opacity: 1;
-}
-#DOGE{
-  display: block;
-  background-color: white;
-  
-}
-#BTC{
+.drawercontainer::-webkit-scrollbar{
   display: none;
- 
 }
 
-#ETH{
-  display: none;
-  
+section{
+    height: 100%;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    padding: 1rem;
 }
 
-.CryptoIconsOV{
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  margin: 4px;
-  display: block;
-  float: left;
-  transition: transform 0.2s;
-  z-index: 20;
-  margin-left: 17px;
-  margin-top: 30px;
-  background-color: black;
-  filter: invert(100);
+.drawergrid{
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px 150px 150px;
+  grid-template-rows: 100px 100px ;
+  grid-gap: 1rem;
 }
 
-.CryptoIcons{
-  width: 40px;
-  height: 40px;
-  margin: 4px;
-  display: block;
-  float: left;
-  transition: transform 0.2s;
-}
-
-.CryptoIcons:hover{
-  animation: myAnim 1s ease 0s 1 normal none;
-}
-
-@keyframes myAnim {
-  0% {
-    transform: scale3d(1, 1, 1);
-  }
-
-  30% {
-    transform: scale3d(1.25, 0.75, 1);
-  }
-
-  40% {
-    transform: scale3d(0.75, 1.25, 1);
-  }
-
-  50% {
-    transform: scale3d(1.15, 0.85, 1);
-  }
-
-  65% {
-    transform: scale3d(0.95, 1.05, 1);
-  }
-
-  75% {
-    transform: scale3d(1.05, 0.95, 1);
-  }
-
-  100% {
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-
-.ContextMenu{
-  position: absolute;
-  text-align: center;
+.item{
+  border-radius: 8px;
   overflow: hidden;
-  border-radius: 16px;
-  z-index: 30;
-  box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-out;
+  border: 1px solidrgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
 }
 
-.ContextMenu ul{
-  padding: 0px;
-  margin: 0px;
-  list-style: none;
+.item:hover{
+  transform: scale(1.10);
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.item img{
+  width:  150px;
+  height: 100px;
+  display: block;
+}
+
+.cryptowidget{
+  margin: 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 980px;
+  width: 980px;
+  height: 280px;
   background: white;
+  border: 1px solidrgba(0,0,0,0.15);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
+  
+  
 }
 
-.ContextMenu ul li{
-  padding: 8px;
-  cursor: pointer;
+.cryptohopper-web-widget{
+  zoom: 102%;
 }
 
-.ContextMenu ul li a{
-  font-family: Copperplate, sans-serif;
-  font-size: 18px;
-  color: black;
+.mcw-box.mcw-white-theme {
+    border: none!important;
 }
 
-.ContextMenu ul li:hover{
-  background-color: rgb(225, 225, 225);
-
+.mcw-link:active {
+	pointer-events: none;
 }
