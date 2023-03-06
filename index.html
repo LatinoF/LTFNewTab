@@ -1,169 +1,108 @@
 <!DOCTYPE html>
 <html lang="en" >
-  <head>
-    <meta charset="UTF-8">
-    <title>LTF New Tab</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="Favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <section>
-      <div  class="Wrapper">
-        <div id="contextMenu" class="ContextMenu" style="display:none">
-          <ul>
-            <li onclick="swapGoogle()"><a id="aGoogle">Google</a></li>
-            <li onclick="swapTV()"><a id="aTV">Fanart.TV</a></li>
-          </ul>
+<head>
+  <meta charset="UTF-8">
+  <title>LTF New Tab</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="Favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+
+<div class="menu">
+    <span><a href="#" style="text-shadow: -.25px -.25px 0 black, .25px .25px black;">NewTab</a></span>
+    <span><a href="#">Apps</a></span> 
+    <span><a href="#">Pirate<a></span>   
+</div>
+
+
+<div class="meteo">
+ <a class="weatherwidget-io" href="https://forecast7.com/en/42d3814d22/torrevecchia-teatina/" data-icons="Climacons Animated" data-mode="Current" data-theme="pure" data-basecolor="" data-textcolor="#000000" >Torrevecchia Teatina, Province of Chieti, Italy</a>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+</div>
+
+<div class="wrapper">
+  
+<div class="contextmenu" id="menu">
+            <ul class="contextmenu-list">
+              
+                <li class="contextmenu-item">
+                  <button class="contextmenu-button" onclick="swapGoogle()" id="aGoogle">
+                    
+                    <img src="Resources/Icons/Google.svg" style="width:24px; margin-right:6px;">
+                    <span>Google</span>
+                  </button>
+                </li>
+        
+                <li class="contextmenu-item">
+                  <button class="contextmenu-button" onclick="swapTV()" id="aTV">
+                    
+                    <img src="Resources/Icons/Fanart.png" style="width:24px; margin-right:6px;">
+                    <span>Fanart</span>
+                  </button>
+                </li>
+              
+            </ul>       
         </div>
-        <div class="SearchBoxRGB" id="EngineSwapper">
-          <form role="search" id="Form">
-            <input type="search" id="Query" class="SearchBox" name="Q" placeholder="Fleps & Drops"> 
-          </form>
-        </div>
-        <div class="Drawer">
-          <div class="Row">
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.google.it/">
-                  <img src="@Resources/Images/Google.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.facebook.com/?sk=h_chr">
-                  <img src="@Resources/Images/Facebook.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.youtube.com/feed/subscriptions">
-                  <img src="@Resources/Images/YouTube.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.twitch.tv/directory/following/channels">
-                  <img src="@Resources/Images/Twitch.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.reddit.com/new/">
-                  <img src="@Resources/Images/Reddit.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.mail.com/int/">
-                  <img src="@Resources/Images/Mail.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.amazon.it">
-                  <img src="@Resources/Images/Amazon.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://best.aliexpress.com/?lan=en">
-                  <img src="@Resources/Images/Aliexpress.png" class="Icon">
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="Row">
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.tvtime.com/it">
-                  <img src="@Resources/Images/TVTime.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://app.plex.tv/desktop/#!/">
-                  <img src="@Resources/Images/Plex.png"  class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://rarbg.to/torrents.php?category=2;18;41;49">
-                  <img src="@Resources/Images/RARBG.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.icv-crew.com/forum/index.php?action=forum">
-                  <img src="@Resources/Images/ICV.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.deviantart.com/">
-                  <img src="@Resources/Images/DeviantART.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://github.com/">
-                  <img src="@Resources/Images/GitHub.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.primevideo.com/">
-                  <img src="@Resources/Images/PrimeVideo.png" class="Icon">
-                </a>
-              </div>
-            </div>
-            <div class="Tile">
-              <div class="TileRGB">
-                <a href="https://www.binance.com/en">
-                  <img src="@Resources/Images/Binance.png"  class="Icon">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="WidgetWrapper">
-          <div class="WidgetZoom">
-            <div class="WidgetRGB">
-              <div class="Widget">
-                <div id="DOGE">
-                  <div class="nomics-ticker-widget" data-base="DOGE"></div>
-                </div>
-                <div id="BTC">
-                  <div class="nomics-ticker-widget" data-base="BTC"></div>
-                </div>
-                <div id="ETH">
-                  <div class="nomics-ticker-widget" data-base="ETH"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="Cycle">
-            <img src="@Resources/Images/DOGE.png" class="CryptoIcons" id="NoDrag1" onclick="switchDOGE();">
-            <img src="@Resources/Images/BTC.png" class="CryptoIcons" id="NoDrag2" onclick="switchBTC();">
-            <img src="@Resources/Images/ETH.png" class="CryptoIcons" id="NoDrag3" onclick="switchETH();">
-          </div>
-        </div>
-      </div>
-    </section>
-    <script  src="./script.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-    <script src="https://widget.nomics.com/embed.js"></script>
-  </body>
+  
+  
+  
+<div class="searchbar" id="EngineSwapper">  
+  <form role="search" id="form">
+    <input type="search" id="query" name="Q" placeholder="Mah Davveroh?" autocomplete="off">
+    <input type="image" class="searchbutton" src="Resources/Icons/Search.svg" alt="submit">
+  </form>  
+</div>
+
+<div class="drawercontainer">
+  <section class="drawer1">
+    <div class="drawergrid">
+      <div class="item"><a href="https://www.google.it/"><img src="Resources/Tiles/Google.jpg"></a></div>
+      <div class="item"><a href="https://www.youtube.com/feed/subscriptions"><img src="Resources/Tiles/Youtube.jpg"></a></div> 
+      <div class="item"><a href="https://www.facebook.com/?sk=h_chr"><img src="Resources/Tiles/Facebook.png"></a></div>
+      <div class="item"><a href="https://www.twitch.tv/directory/following/channels"><img src="Resources/Tiles/Twitch.jpg"></a></div>
+      <div class="item"><a href="https://outlook.live.com/mail/0/inbox"><img src="Resources/Tiles/Outlook.jpg"></a></div>
+      <div class="item"><a href="https://www.amazon.it"><img src="Resources/Tiles/Amazon.jpg"></a></div>
+
+      <div class="item"><a href="https://www.tvtime.com/it"><img src="Resources/Tiles/TVTime.jpg"></a></div>
+      <div class="item"><a href="https://rarbg.to/torrents.php?category=2;18;41;49"><img src="Resources/Tiles/RARBG.jpg"></a></div>
+      <div class="item"><a href="https://www.icv-crew.com/forum/index.php?action=forum"><img src="Resources/Tiles/ICV.jpg"></a></div>
+      <div class="item"><a href="https://www.deviantart.com/"><img src="Resources/Tiles/DeviantArt.png"></a></div>
+      <div class="item"><a href="https://www.reddit.com/new/"><img src="Resources/Tiles/Reddit.jpg"></a></div>
+      <div class="item"><a href="https://best.aliexpress.com/?lan=en"><img src="Resources/Tiles/Aliexpress.jpg"></a></div>
+    </div>
+  </section>
+  <section class="drawer2">
+    <div class="drawergrid">
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+      <div class="item"><a href=""><img src="https://place-hold.it/150x100"></a></div>
+    </div>
+  </section>
+</div>
+
+  <!-- Crypto Widget BEGIN -->
+  <div class="cryptowidget">
+    <div class="cryptohopper-web-widget" data-id="8" data-coins="dogecoin" data-round="0" data-realtime="on"></div>
+  </div>
+  <!-- Crypto Widget END -->
+ </div>
+
+
+<script src="https://www.cryptohopper.com/widgets/js/script"></script>
+<script  src="./script.js"></script>
+
+</body>
 </html>
