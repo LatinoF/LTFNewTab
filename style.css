@@ -1,26 +1,28 @@
-*, *:after, *:before{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-position: center;
   background-repeat: no-repeat;
-  background-size:cover;
-  background-image: url(Resources/Background.jpg);
-  background-color: #fff;
+  background-size: cover;
+  background-image: url(Resources/BG-Light.jpg);
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  transition: background-image 0.5s ease-in-out;
 }
 
-.menu{
-  position:fixed;
-  left:0px;
-  top:-50px;
+.menu {
+  position: fixed;
+  left: 0px;
+  top: -50px;
   width: 100vw;
   padding: 20px;
   text-align: center;
@@ -30,26 +32,26 @@ body {
   z-index: 1;
 }
 
-.menu:hover{
-  top:-10px;  
+.menu:hover {
+  top: -10px;
 }
 
-.menu span{
-  margin:20px;
+.menu span {
+  margin: 20px;
 }
 
-.menu span a:hover{
+.menu span a:hover {
   text-shadow: -.25px -.25px 0 black, .25px .25px black;
 }
 
-a{
-  text-decoration:none;
+a {
+  text-decoration: none;
   text-shadow: -.25px -.25px 0 transparent, .25px .25px transparent;
-  color:black;
+  color: black;
   transition: all 0.3s ease-out;
 }
 
-.meteo{
+.meteo {
   min-width: 222px;
   max-width: 222px;
   min-height: 96px;
@@ -62,18 +64,39 @@ a{
   transform: scale(0.7);
   margin: 0;
 }
-.weatherwidget-io{
+
+.weatherwidget-io {
   text-decoration: none;
 }
 
-.wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    flex-flow: column;
-    position: fixed;
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+
+}
+
+#toggle {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  flex-flow: column;
+  position: fixed;
 }
 
 .contextmenu {
@@ -96,15 +119,16 @@ a{
   width: 100%;
   padding: 8px;
 }
-.contextmenu-list, ul {
-    list-style-type: none;
-}
-.contextmenu-list{
 
+.contextmenu-list,
+ul {
+  list-style-type: none;
 }
+
 .contextmenu-item {
   position: relative;
 }
+
 .contextmenu-button {
   font: inherit;
   color: inherit;
@@ -118,11 +142,12 @@ a{
   position: relative;
   background-color: #fff;
 }
+
 .contextmenu-button:hover {
   background-color: #f1f3f7;
 }
 
-.searchbar{
+.searchbar {
   margin: 2rem;
   display: flex;
   align-items: center;
@@ -130,7 +155,7 @@ a{
   padding: 4px;
   border-radius: 8px;
   background: white;
-  border: 1px solidrgba(0,0,0,0.15);
+  border: 1px solidrgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
 }
 
@@ -156,61 +181,61 @@ input {
   width: 24px;
   height: 24px;
   padding: 10px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-.drawercontainer{
-    height: 100%;
-    max-height: 248px;
-    position: relative;
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.drawercontainer {
+  height: 100%;
+  max-height: 248px;
+  position: relative;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.drawercontainer::-webkit-scrollbar{
+.drawercontainer::-webkit-scrollbar {
   display: none;
 }
 
-section{
-    height: 100%;
-    min-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    scroll-snap-align: start;
-    padding: 1rem;
+section {
+  height: 100%;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  padding: 1rem;
 }
 
-.drawergrid{
+.drawergrid {
   display: grid;
   grid-template-columns: 150px 150px 150px 150px 150px 150px;
-  grid-template-rows: 100px 100px ;
+  grid-template-rows: 100px 100px;
   grid-gap: 1rem;
 }
 
-.item{
+.item {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease-out;
-  border: 1px solidrgba(0,0,0,0.15);
+  border: 1px solidrgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
 }
 
-.item:hover{
+.item:hover {
   transform: scale(1.10);
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
-.item img{
-  width:  150px;
+.item img {
+  width: 150px;
   height: 100px;
   display: block;
 }
 
-.cryptowidget{
+.cryptowidget {
   margin: 2rem;
   border-radius: 16px;
   overflow: hidden;
@@ -218,20 +243,22 @@ section{
   width: 980px;
   height: 280px;
   background: white;
-  border: 1px solidrgba(0,0,0,0.15);
+  border: 1px solidrgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
-  
-  
 }
 
-.cryptohopper-web-widget{
+.cryptohopper-web-widget {
   zoom: 102%;
 }
 
 .mcw-box.mcw-white-theme {
-    border: none!important;
+  border: none !important;
 }
 
 .mcw-link:active {
-	pointer-events: none;
+  pointer-events: none;
+}
+
+.dark {
+  transition: 0.5s ease-in-out;
 }
