@@ -16,6 +16,7 @@ if (isDarkModeEnabled) {
   body.style.backgroundImage = "url('Resources/BG-Dark.jpg')";
   darkdivs.forEach(darkdiv => {
     darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
+    darkdiv.style.color = 'black';
   });
 }
 
@@ -28,6 +29,7 @@ toggle.addEventListener("click", function () {
     body.style.backgroundImage = "url('Resources/BG-Dark.jpg')";
     darkdivs.forEach(darkdiv => {
       darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
+      darkdiv.style.color = 'black';
     });
 
     // Store dark mode state in local storage
@@ -38,6 +40,7 @@ toggle.addEventListener("click", function () {
     body.style.backgroundImage = "url('Resources/BG-Light.jpg')";
     darkdivs.forEach(darkdiv => {
       darkdiv.style.filter = '';
+      darkdiv.style.color = '#5e5e5e';//
     });
     // Remove dark mode state from local storage
     localStorage.removeItem("isDarkModeEnabled");
