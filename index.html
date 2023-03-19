@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <title>LTF New Tab</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="weather.css">
+  <link rel="icon" type="image/svg+xml" href="Resources/Icons/Favicon.svg" sizes="any">
 </head>
 
 <body>
@@ -14,20 +15,42 @@
   <div class="menu dark">
     <span><a href="#" style="text-shadow: -.25px -.25px 0 black, .25px .25px black;">NewTab</a></span>
     <span><a href="#">Apps</a></span>
-    <span><a href="#">Pirate<a></span>
+    <span><a href="#">Pirate</a></span>
   </div>
   <!-- Menu ENDS -->
 
-  <!-- Meteo Widget BEGIN -->
-  <div class="meteo dark">
-    <a class="weatherwidget-io" href="https://forecast7.com/en/42d3814d22/torrevecchia-teatina/"
-      data-icons="Climacons Animated" data-mode="Current" data-theme="pure" data-basecolor=""
-      data-textcolor="#000000">Torrevecchia Teatina, Province of Chieti, Italy</a>
-    <script>
-      !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
-    </script>
+  <!-- Weather Widget BEGIN -->
+  <div class="weather-widget">
+    <img class="weather-icon" src="">
+    <span class="temperature"></span>
   </div>
-  <!-- Meteo Widget ENDS -->
+  
+  <div class="weather-info">
+    <ul>
+      <li>
+        <img src="Resources/Meteocons/Static/thermometer-celsius.svg">
+        <span class="feels-like"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/uv-index.svg">
+        <span class="uv-index"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/humidity.svg">
+        <span class="humidity"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/wind.svg">
+        <span class="wind"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/barometer.svg">
+        <span class="pressure"></span>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Weather Widget ENDS -->
 
   <!-- Dark Mode Toggle BEGIN -->
   <div class="toggle-container">
@@ -118,6 +141,7 @@
   <script async src="https://www.cryptohopper.com/widgets/js/script"></script>
   <script async src="./script.js"></script>
   <script async src="./toggle.js"></script>
+  <script async src="./weather.js"></script>
 
 </body>
 

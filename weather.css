@@ -1,0 +1,57 @@
+.weather-widget {
+  position: absolute;
+  left: 6px;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  max-width: fit-content;
+  max-height: fit-content;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.weather-icon {
+  margin-right: 0.6rem;
+  width: 72px;
+  filter: drop-shadow(0px 0px 1px rgba(94, 94, 94, 0.8));
+}
+
+.temperature {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #5e5e5e;
+}
+
+.weather-info{
+  background: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 8px;
+  padding-right: 16px;
+  max-width: fit-content;
+  position: fixed;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  z-index: 100;
+}
+
+.weather-info li {
+  display: flex;
+  align-items: center;
+}
+
+.weather-info li .icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.weather-info img{
+  width: 36px;
+  margin-right: 6px;
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.2));
+}

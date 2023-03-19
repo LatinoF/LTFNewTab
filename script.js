@@ -63,3 +63,12 @@ function swapTV() {
   document.getElementById("aGoogle").style.fontWeight = "normal";
 }
 
+
+//Searchbar Placeholder Change
+var placeholders = ["Mah Davveroh?", "Ebberghe?", "Ghe Suggedeh?", "Tutto Positivo?"];
+var index = 0;
+setInterval(function () {
+  index = (index + 1) % placeholders.length;
+  var textField = document.getElementById("query");
+  textField.placeholder = placeholders[index];
+}, 10000); // change the placeholder text every 10 seconds
