@@ -6,6 +6,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+span,
+p,
+.tooltip {
   font-family: 'Nunito', sans-serif;
 }
 
@@ -237,30 +242,6 @@ section {
   width: 150px;
   height: 100px;
   display: block;
-}
-
-.cryptowidget {
-  margin: 2rem;
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 980px;
-  width: 980px;
-  height: 280px;
-  background: white;
-  border: 1px solidrgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
-}
-
-.cryptohopper-web-widget {
-  zoom: 102%;
-}
-
-.mcw-box.mcw-white-theme {
-  border: none !important;
-}
-
-.mcw-link:active {
-  pointer-events: none;
 }
 
 .dark {
