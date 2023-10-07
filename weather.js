@@ -1,4 +1,4 @@
-const apiKey = "4573c189d467ca1814c1c10000060792";
+const apiKey = "bc1301b0b23fe6ef52032a7e5bb70820";
 const city = "Torrevecchia Teatina";
 const weatherIcon = document.querySelector(".weather-icon");
 const temperature = document.querySelector(".temperature");
