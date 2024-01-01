@@ -72,3 +72,13 @@ setInterval(function () {
   var textField = document.getElementById("query");
   textField.placeholder = placeholders[index];
 }, 10000); // change the placeholder text every 10 seconds
+
+
+
+
+
+
+//begheni
+if(window.location.search === "?page=tab") {
+  window.location.href = "tab.html";
+}
