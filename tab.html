@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LTF New Tab</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="weather.css">
+  <link rel="icon" type="image/svg+xml" href="Resources/Icons/Favicon.svg" sizes="any">
+  
+</head>
+
+<body>
+
+  <!-- MENU BEGIN -->
+  <div class="menu dark">
+    <span><a href="#" style="text-shadow: -.25px -.25px 0 black, .25px .25px black;">NewTab</a></span>
+    <span><a href="https://latinof.github.io/LTFAppDown/">Apps</a></span>
+    <span><a href="#">Pirate</a></span>
+  </div>
+  <!-- Menu ENDS -->
+
+  <!-- Weather Widget BEGIN -->
+  <div class="weather-widget">
+    <img class="weather-icon" src="">
+    <span class="temperature dark"></span>
+  </div>
+  
+  <div class="weather-info">
+    <ul>
+      <li>
+        <img src="Resources/Meteocons/Static/thermometer-celsius.svg">
+        <span class="feels-like"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/uv-index.svg">
+        <span class="uv-index"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/humidity.svg">
+        <span class="humidity"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/wind.svg">
+        <span class="wind"></span>
+      </li>
+      <li>
+        <img src="Resources/Meteocons/Static/barometer.svg">
+        <span class="pressure"></span>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Weather Widget ENDS -->
+
+  <!-- Dark Mode Toggle BEGIN -->
+  <div class="toggle-container">
+    <img src="Resources/Icons/Sun.svg" alt="Toggle Dark Mode" id="toggle">
+  </div>
+  <!-- Dark Mode Toggle ENDS -->
+
+
+  <div class="wrapper">
+
+    <!-- Custom Context Menu BEGIN -->
+    <div class="contextmenu" id="menu">
+      <ul class="contextmenu-list">
+        <li class="contextmenu-item">
+          <button class="contextmenu-button" onclick="swapGoogle()" id="aGoogle">
+            <img src="Resources/Icons/Google.svg" style="width:24px; margin-right:6px;">
+            <span>Google</span>
+          </button>
+        </li>
+        <li class="contextmenu-item">
+          <button class="contextmenu-button" onclick="swapTV()" id="aTV">
+            <img src="Resources/Icons/Fanart.png" style="width:24px; margin-right:6px;">
+            <span>Fanart</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- Custom Context Menu ENDS -->
+
+
+    <!-- Searchbar BEGIN -->
+    <div class="searchbar dark" id="EngineSwapper">
+      <form role="search" id="form">
+        <input type="search" id="query" name="Q" placeholder="Mah Davveroh?" autocomplete="off">
+        <input type="image" class="searchbutton" src="Resources/Icons/Search.svg" alt="submit">
+      </form>
+    </div>
+    <!-- Searchbar ENDS -->
+
+
+    <!-- Drawers BEGIN -->
+    <div class="drawercontainer">
+      <section class="drawer1">
+        <div class="drawergrid">
+          <div class="item"><a href="https://www.google.it/"><img src="Resources/Tiles/Google.jpg"></a></div>
+          <div class="item"><a href="https://www.youtube.com/feed/subscriptions"><img src="Resources/Tiles/Youtube.jpg"></a></div>
+          <div class="item"><a href="https://www.facebook.com/?sk=h_chr"><img src="Resources/Tiles/Facebook.png"></a></div>
+          <div class="item"><a href="https://www.twitch.tv/directory/following/channels"><img src="Resources/Tiles/Twitch.jpg"></a></div>
+          <div class="item"><a href="https://outlook.live.com/mail/0/inbox"><img src="Resources/Tiles/Outlook.jpg"></a></div>
+          <div class="item"><a href="https://www.amazon.it"><img src="Resources/Tiles/Amazon.jpg"></a></div>
+
+          <div class="item"><a href="https://app.tvtime.com/?mode=auth"><img src="Resources/Tiles/TVTime.jpg"></a></div>
+          <div class="item"><a href="https://torrentgalaxy.to/torrents.php?c41=1&c11=1&c6=1&search=&lang=0&nox=2#results"><img src="Resources/Tiles/TGx.jpg"></a></div>
+          <div class="item"><a href="https://www.icv-crew.com/forum/index.php?action=forum"><img src="Resources/Tiles/ICV.jpg"></a></div>
+          <div class="item"><a href="https://www.deviantart.com/"><img src="Resources/Tiles/DeviantArt.png"></a></div>
+          <div class="item"><a href="https://www.reddit.com/new/"><img src="Resources/Tiles/Reddit.jpg"></a></div>
+          <div class="item"><a href="https://best.aliexpress.com/?lan=en"><img src="Resources/Tiles/Aliexpress.jpg"></a></div>
+        </div>
+      </section>
+      <section class="drawer2">
+        <div class="drawergrid">
+          <div class="item"><a href="https://www.unidav.it/"><img src="Resources/Tiles/Unidav.jpg"></a></div>
+          <div class="item"><a href="https://www.didatticaunidav.it/"><img src="Resources/Tiles/DidatticaUnidav.jpg"></a></div>
+          <div class="item"><a href="https://www.esamiunidav.com/"><img src="Resources/Tiles/EsamiUnidav.jpg"></a></div>
+          <div class="item"><a href="https://flexsuite.it/login.php"><img src="Resources/Tiles/FlexTax.jpg"></a></div>
+          <div class="item"><a href="https://web.whatsapp.com/"><img src="Resources/Tiles/WhatsApp.jpg"></a></div>
+          <div class="item"><a href="https://web.telegram.org/z/#777000"><img src="Resources/Tiles/Telegram.jpg"></a></div>
+
+          <div class="item"><a href="https://www.intesasanpaolo.com/it/persone-e-famiglie/login-page.html"><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+          <div class="item"><a href=""><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+          <div class="item"><a href=""><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+          <div class="item"><a href=""><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+          <div class="item"><a href=""><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+          <div class="item"><a href=""><img src="https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto"></a></div>
+        </div>
+      </section>
+    </div>
+    <!-- Drawers END -->
+
+
+  </div>
+
+  <script async src="./script.js"></script>
+  <script async src="./toggle.js"></script>
+  <script async src="./weather.js"></script>
+  
+</body>
+
+</html>
