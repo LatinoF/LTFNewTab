@@ -82,3 +82,9 @@ setInterval(function () {
 if(window.location.search === "?page=tab") {
   window.location.href = "tab.html";
 }
+
+
+//calvir
+if(window.location.search === "?page=min") {
+  window.location.href = "minindex.html";
+}
