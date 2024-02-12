@@ -76,15 +76,15 @@ setInterval(function () {
 
 
 
+const pageMappings = {
+  tab: "tab.html",
+  min: "min.html",
+  // Add others here
+};
 
+const currentPage = new URLSearchParams(window.location.search).get("page");
 
-//begheni
-if(window.location.search === "?page=tab") {
-  window.location.href = "tab.html";
+if (currentPage && pageMappings[currentPage]) {
+  window.location.href = pageMappings[currentPage];
 }
 
-
-//calvir
-if(window.location.search === "?page=min") {
-  window.location.href = "minindex.html";
-}
