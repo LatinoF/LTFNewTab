@@ -79,6 +79,7 @@ setInterval(function () {
 const pageMappings = {
   tab: "tab.html",
   min: "min.html",
+  drawers: "drawers.html",
   // Add others here
 };
 
