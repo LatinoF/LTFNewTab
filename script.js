@@ -82,6 +82,8 @@ const pageMappings = {
   drawers: "drawers.html",
   searchbar: "searchbar.html",
   crypto: "crypto.html",
+  weather: "weather:.html",
+  searchbardrawers: "searchbardrawers.html",
   // Add others here
 };
 
