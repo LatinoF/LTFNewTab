@@ -26,7 +26,7 @@ body {
   align-items: center;
   overflow: hidden;
   transition: background-image 0.5s ease-in-out;
-  
+
 }
 
 .menu {
@@ -130,7 +130,8 @@ a {
   padding: 8px;
 }
 
-.contextmenu-list,ul {
+.contextmenu-list,
+ul {
   list-style-type: none;
 }
 
@@ -198,8 +199,8 @@ input {
   max-height: 248px;
   position: relative;
   scroll-snap-type: y mandatory;
-  overflow-y: auto; 
-  scroll-behavior: smooth!important;
+  overflow-y: auto;
+  scroll-behavior: smooth !important;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -262,4 +263,12 @@ section {
 
 .dark {
   transition: 0.5s ease-in-out;
+}
+
+.mcw-box.mcw-white-theme {
+  border: none !important;
+}
+
+.text-center {
+  display: none !important;
 }

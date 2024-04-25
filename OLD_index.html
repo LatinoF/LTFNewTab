@@ -134,27 +134,94 @@
     </div>
     <!-- Drawers END -->
 
-<!-- Crypto Widget BEGIN -->
-<div class="cryptoWidget dark">
+    <!-- Crypto Widget BEGIN -->
+    <div class="cryptoWidget dark">
+    
+      <section class="widget">
+        <div class="widgetContainer">
+          <div class="widgetHeader">
+            <div>
+              <img src="Resources/Icons/Dogecoin.png">
+              <p style="margin-left: 10px;">Dogecoin</p>
+            </div>
+            <div>
+              <i id="dogecoinMarketIcon"></i>
+              <p id="dogecoinMarket"></p>
+              <p id="dogecoinCurrentPrice"></p>
+            </div>
+          </div>
+          <div class="chart" id="dogecoinChart"></div>
+          <div class="highLow" style="left: 15px;">
+            <i class="ti ti-arrow-big-down-filled"></i>
+            <p id="dogecoinMinPrice"></p>
+          </div>
+          <div class="highLow" style="right: 15px;">
+            <i class="ti ti-arrow-big-up-filled"></i>
+            <p id="dogecoinMaxPrice"></p>
+          </div>
+        </div>
+      </section>
+    
+      <section class="widget">
+        <div class="widgetContainer">
+          <div class="widgetHeader">
+            <div>
+              <img src="Resources/Icons/Bitcoin.png">
+              <p style="margin-left: 10px;">Bitcoin</p>
+            </div>
+            <div>
+              <i id="bitcoinMarketIcon"></i>
+              <p id="bitcoinMarket"></p>
+              <p id="bitcoinCurrentPrice"></p>
+            </div>
+          </div>
+          <div class="chart" id="bitcoinChart"></div>
+          <div class="highLow" style="left: 15px;">
+            <i class="ti ti-arrow-big-down-filled"></i>
+            <p id="bitcoinMinPrice"></p>
+          </div>
+          <div class="highLow" style="right: 15px;">
+            <i class="ti ti-arrow-big-up-filled"></i>
+            <p id="bitcoinMaxPrice"></p>
+          </div>
+        </div>
+      </section>
+    
+      <section class="widget">
+        <div class="widgetContainer">
+          <div class="widgetHeader">
+            <div>
+              <img src="Resources/Icons/Ethereum.png">
+              <p style="margin-left: 10px;">Ethereum</p>
+            </div>
+            <div>
+              <i id="ethereumMarketIcon"></i>
+              <p id="ethereumMarket"></p>
+              <p id="ethereumCurrentPrice"></p>
+            </div>
+          </div>
+          <div class="chart" id="ethereumChart"></div>
+          <div class="highLow" style="left: 15px;">
+            <i class="ti ti-arrow-big-down-filled"></i>
+            <p id="ethereumMinPrice"></p>
+          </div>
+          <div class="highLow" style="right: 15px;">
+            <i class="ti ti-arrow-big-up-filled"></i>
+            <p id="ethereumMaxPrice"></p>
+          </div>
+        </div>
+      </section>
 
-  <section class="widget">
-    <div class="widgetContainer">
-      <div class="cryptohopper-web-widget" data-id="8" data-chart_color="#00bde2" data-coins="bitcoin"
-        data-realtime="on">
-      </div>
     </div>
-  </section>
-
-
-</div>
-<!-- Crypto Widget END -->
+    <!-- Crypto Widget END -->
 
   </div>
 
+  <script async src="https://d3js.org/d3.v7.min.js"></script>
   <script async src="./script.js"></script>
   <script async src="./toggle.js"></script>
   <script async src="./weather.js"></script>
-  <script async src="https://www.cryptohopper.com/widgets/js/script"></script>
+  <script async src="./crypto.js"></script>
   
 </body>
 
