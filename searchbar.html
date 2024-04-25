@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LTF New Tab</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="weather.css">
+  <link rel="stylesheet" href="crypto.css">
+  <link rel="icon" type="image/svg+xml" href="Resources/Icons/Favicon.svg" sizes="any">
+  
+</head>
+
+<body style="background-image: none!important; background-color: none!important;">
+
+  <div class="wrapper">
+
+    <!-- Custom Context Menu BEGIN -->
+    <div class="contextmenu" id="menu">
+      <ul class="contextmenu-list">
+        <li class="contextmenu-item">
+          <button class="contextmenu-button" onclick="swapGoogle()" id="aGoogle">
+            <img src="Resources/Icons/Google.svg" style="width:24px; margin-right:6px;">
+            <span>Google</span>
+          </button>
+        </li>
+        <li class="contextmenu-item">
+          <button class="contextmenu-button" onclick="swapTV()" id="aTV">
+            <img src="Resources/Icons/Fanart.png" style="width:24px; margin-right:6px;">
+            <span>Fanart</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- Custom Context Menu ENDS -->
+
+
+    <!-- Searchbar BEGIN -->
+    <div class="searchbar dark" id="EngineSwapper">
+      <form role="search" id="form">
+        <input type="search" id="query" name="Q" placeholder="Mah Davveroh?" autocomplete="off">
+        <input type="image" class="searchbutton" src="Resources/Icons/Search.svg" alt="submit">
+      </form>
+    </div>
+    <!-- Searchbar ENDS -->
+
+  </div>
+
+  <script async src="https://d3js.org/d3.v7.min.js"></script>
+  <script async src="./script.js"></script>
+  
+</body>
+
+</html>

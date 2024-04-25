@@ -80,6 +80,8 @@ const pageMappings = {
   tab: "tab.html",
   min: "min.html",
   drawers: "drawers.html",
+  searchbar: "searchbar.html",
+  crypto: "crypto.html",
   // Add others here
 };
 
