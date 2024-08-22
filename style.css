@@ -272,3 +272,13 @@ section {
 .text-center {
   display: none !important;
 }
+
+
+.mcw-link{
+  pointer-events: none;
+
+}
+
+.chart-wrapper{
+  pointer-events: all!important;
+}

@@ -93,3 +93,9 @@ if (currentPage && pageMappings[currentPage]) {
   window.location.href = pageMappings[currentPage];
 }
 
+
+document.querySelectorAll('.mcw-link').forEach(link => {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
+  });
+});
