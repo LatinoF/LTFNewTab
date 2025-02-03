@@ -4,30 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LTF OLED Care</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="Resources/Icons/OLED_Care.svg" sizes="any">
     <style>
         body {
-            background-color: black!important;
-            background-image: none!important;
+            background-color: black;
             margin: 0;
-            height: 100vh; /* Full height of the viewport */
+            height: 100vh;
+        }
+     
+        .menu {
+          position: fixed;
+          left: 0px;
+          top: -50px;
+          width: 100vw;
+          padding: 20px;
+          text-align: center;
+          font-size: 20px;
+          transition: top 1s;
+          -webkit-transition: top 1s;
+          z-index: 1;
+          color: white;
+        }
+        
+        .menu:hover {
+          top: -10px;
+        }
+        
+        .menu span {
+          margin: 20px;
+        }
+        
+        .menu span a {
+          color: white
+          text-decoration: none;
+        }
+        
+        .menu span a:hover {
+          text-shadow: -.25px -.25px 0 white, .25px .25px white;
         }
 
-        .menu{
-            color: white!important;
+        .thispage {
+          text-shadow: -.25px -.25px 0 white, .25px .25px white;
         }
-        .menu span a:hover {
-      text-shadow: -.25px -.25px 0 white, .25px .25px white;
+
 }
     </style>
 </head>
 <body>
     <!-- MENU BEGIN -->
-  <div class="menu dark">
+  <div class="menu">
     <span><a href="https://latinof.github.io/LTFNewTab/">NewTab</a></span>
     <span><a href="https://winget.run/">Apps</a></span>
-    <span><a href="https://latinof.github.io/LTFNewTab/oled" style="text-shadow: -.25px -.25px 0 white, .25px .25px white;">OLED Care</a></span>
+    <span class="thispage"><a href="https://latinof.github.io/LTFNewTab/oled">OLED Care</a></span>
   </div>
   <!-- Menu ENDS -->
 </body>
