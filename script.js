@@ -84,6 +84,7 @@ const pageMappings = {
   crypto: "crypto.html",
   weather: "weather:.html",
   searchbardrawers: "searchbardrawers.html",
+  oled: "oled.html"
   // Add others here
 };
 
