@@ -75,26 +75,27 @@ setInterval(function () {
 
 
 
-
+// Mapping
 const pageMappings = {
-  tab: "tab.html",
-  min: "min.html",
-  drawers: "drawers.html",
-  searchbar: "searchbar.html",
-  crypto: "crypto.html",
-  weather: "weather:.html",
-  searchbardrawers: "searchbardrawers.html",
-  oled: "oled.html"
-  // Add others here
+    tab: "tab.html",
+    min: "min", 
+    oled: "oled.html"
 };
 
 const currentPage = new URLSearchParams(window.location.search).get("page");
 
-if (currentPage && pageMappings[currentPage]) {
-  window.location.href = pageMappings[currentPage];
+if (currentPage === 'min') {
+    const cryptoWidget = document.querySelector('.cryptoWidget');
+    if (cryptoWidget) {
+        cryptoWidget.style.display = 'none';
+    }
+} else if (currentPage && pageMappings[currentPage]) {
+    window.location.href = pageMappings[currentPage];
 }
 
 
+
+// Prevent default action for Crypto Widget
 document.querySelectorAll('.mcw-link').forEach(link => {
   link.addEventListener('click', function (event) {
     event.preventDefault();
