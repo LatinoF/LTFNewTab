@@ -17,8 +17,19 @@
             align-items: center;
             color: white;
             font-family: 'Nunito', sans-serif;
+            overflow: hidden; /* Prevent scrollbars */
         }
         
+        /* Clock Styling */
+        #clock {
+            font-size: 8rem;
+            font-weight: bold;
+            display: none; /* Default hidden */
+            user-select: none;
+            cursor: default;
+            color: rgb(189, 189, 189);
+        }
+
         .menu {
             position: fixed;
             top: -50px;
@@ -57,12 +68,40 @@
     </style>
 </head>
 <body>
-    <!-- MENU BEGIN -->
     <div class="menu">
         <span><a href="https://latinof.github.io/LTFNewTab/">NewTab</a></span>
         <span><a href="https://winget.run/">Apps</a></span>
         <span class="thispage"><a href="https://latinof.github.io/LTFNewTab/oled">OLED Care</a></span>
     </div>
-    <!-- MENU END -->
+    <div id="clock">00:00</div>
+
+    <script>
+        const clockElement = document.getElementById('clock');
+
+        // Update time for Italy (CET/CEST)
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('it-IT', {
+                timeZone: 'Europe/Rome',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            clockElement.textContent = timeString;
+        }
+
+        // Toggle visibility on Spacebar
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent page scrolling
+                const isHidden = clockElement.style.display === 'none' || clockElement.style.display === '';
+                clockElement.style.display = isHidden ? 'block' : 'none';
+            }
+        });
+
+        // Initialize clock
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
