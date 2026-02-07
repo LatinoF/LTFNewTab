@@ -7,7 +7,6 @@
     <link rel="icon" type="image/svg+xml" href="Resources/Icons/OLED_Care.svg" sizes="any">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-
         body {
             background-color: black;
             margin: 0;
@@ -17,19 +16,15 @@
             align-items: center;
             color: white;
             font-family: 'Nunito', sans-serif;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden;
+            cursor: pointer;
         }
-        
-        /* Clock Styling */
         #clock {
             font-size: 8rem;
             font-weight: bold;
-            display: none; /* Default hidden */
             user-select: none;
-            cursor: default;
             color: rgb(189, 189, 189);
         }
-
         .menu {
             position: fixed;
             top: -50px;
@@ -42,29 +37,17 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.8);
         }
-        
-        .menu:hover {
-            top: -10px;
-        }
-        
-        .menu span {
-            margin: 20px;
-        }
-        
+        .menu:hover { top: -10px; }
+        .menu span { margin: 20px; }
         .menu span a {
             color: white;
             text-decoration: none;
             padding: 5px 10px;
             transition: text-shadow 0.3s ease-in-out;
         }
-        .menu span a:visited {
-            color: white;
-        }
-
+        .menu span a:visited { color: white; }
         .menu span a:hover,
-        .thispage a {
-            text-shadow: -0.5px -0.5px 0 white, 0.5px 0.5px white;
-        }
+        .thispage a { text-shadow: -0.5px -0.5px 0 white, 0.5px 0.5px white; }
     </style>
 </head>
 <body>
@@ -78,28 +61,28 @@
     <script>
         const clockElement = document.getElementById('clock');
 
-        // Update time for Italy (CET/CEST)
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('it-IT', {
+            clockElement.textContent = now.toLocaleTimeString('it-IT', {
                 timeZone: 'Europe/Rome',
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit'
             });
-            clockElement.textContent = timeString;
         }
 
-        // Toggle visibility on Spacebar
-        window.addEventListener('keydown', (event) => {
-            if (event.code === 'Space') {
-                event.preventDefault(); // Prevent page scrolling
-                const isHidden = clockElement.style.display === 'none' || clockElement.style.display === '';
-                clockElement.style.display = isHidden ? 'block' : 'none';
-            }
+        // Load last state
+        const saved = localStorage.getItem('clockVisible');
+        let isVisible = saved === null ? false : saved === 'true';
+        clockElement.style.display = isVisible ? 'block' : 'none';
+
+        // Toggle on left click anywhere
+        document.addEventListener('click', () => {
+            isVisible = !isVisible;
+            clockElement.style.display = isVisible ? 'block' : 'none';
+            localStorage.setItem('clockVisible', isVisible);
         });
 
-        // Initialize clock
         setInterval(updateClock, 1000);
         updateClock();
     </script>
