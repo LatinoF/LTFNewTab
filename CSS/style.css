@@ -125,7 +125,6 @@ a {
 }
 
 .contextmenu {
-  display: flex;
   display: none;
   position: absolute;
   flex-direction: column;
@@ -180,7 +179,7 @@ ul {
   padding: 4px;
   border-radius: 8px;
   background: white;
-  border: 1px solidrgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
 }
 
@@ -261,7 +260,7 @@ section {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease-out;
-  border: 1px solidrgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 3px rgb(0 0 0 / 6%);
 }
 

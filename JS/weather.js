@@ -1,3 +1,4 @@
+// API key — restringi nel dashboard OpenWeatherMap (HTTP referrers: latinof.github.io/*, localhost/*)
 const apiKey = "bc1301b0b23fe6ef52032a7e5bb70820";
 const city = "Torrevecchia Teatina";
 const weatherIcon = document.querySelector(".weather-icon");
@@ -23,19 +24,8 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}
     wind.innerHTML = `${data.wind.speed} m/s`;
     humidity.innerHTML = `${data.main.humidity}%`;
 
-    //UV Index Fetch
-    fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${apiKey}`)
-      .then(response => response.json())
-      .then(uviData => {
-        const now = Math.floor(Date.now() / 1000);
-        const isDaytime = now >= data.sys.sunrise && now <= data.sys.sunset;
-        if (isDaytime) {
-          uvIndexElement.innerHTML = `${Math.round(uviData.value)}`;
-        } else {
-          uvIndexElement.innerHTML = '0';
-        }
-      })
-      .catch(error => console.log(error));
+    //UV Index — endpoint deprecato, mostriamo N/A
+    uvIndexElement.innerHTML = 'N/A';
   })
   .catch(error => console.log(error));
 }
