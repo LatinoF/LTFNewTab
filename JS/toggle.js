@@ -3,20 +3,12 @@
 
 const toggle = document.querySelector("#toggle");
 const body = document.body;
-const darkdivs = document.querySelectorAll('.dark');
 
-
-
-// Check if dark mode is enabled in local storage
 const isDarkModeEnabled = localStorage.getItem("isDarkModeEnabled");
 
-if (isDarkModeEnabled) {
+if (isDarkModeEnabled === "true") {
   body.classList.add("dark-mode");
   toggle.setAttribute("src", "Resources/Icons/Moon.svg");
-  darkdivs.forEach(darkdiv => {
-    darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
-    darkdiv.style.color = 'black';
-  });
 }
 
 toggle.addEventListener("click", function () {
@@ -25,22 +17,11 @@ toggle.addEventListener("click", function () {
   if (body.classList.contains("dark-mode")) {
     toggle.setAttribute("src", "Resources/Icons/Moon.svg");
     toggle.classList.add("rotate");
-    darkdivs.forEach(darkdiv => {
-      darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
-      darkdiv.style.color = 'black';
-    });
-
-    // Store dark mode state in local storage
-    localStorage.setItem("isDarkModeEnabled", true);
+    localStorage.setItem("isDarkModeEnabled", "true");
   } else {
     toggle.setAttribute("src", "Resources/Icons/Sun.svg");
     toggle.classList.remove("rotate");
-    darkdivs.forEach(darkdiv => {
-      darkdiv.style.filter = '';
-      darkdiv.style.color = '#5e5e5e';//
-    });
-    // Remove dark mode state from local storage
-    localStorage.removeItem("isDarkModeEnabled");
+    localStorage.setItem("isDarkModeEnabled", "false");
   }
 });
 

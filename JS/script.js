@@ -1,11 +1,11 @@
 
 // Disable Image Dragging
-window.ondragstart = function () { return false; }
+window.addEventListener('dragstart', function (e) { e.preventDefault(); })
 
 
 //Custom Context Menu
-document.onclick = hideMenu;
-document.onauxclick = hideMenu;
+document.addEventListener('click', hideMenu);
+document.addEventListener('auxclick', hideMenu);
 
 function hideMenu() {
   document.getElementById("menu").style.display = "none"
@@ -32,14 +32,14 @@ var Site = '';
 
 function Submitted(event) {
   event.preventDefault();
-  const url = searchengine + Site + '+' + Q.value;
+  const url = searchengine + Site + '+' + encodeURIComponent(Q.value);
   const win = window.open(url, "_self");
 }
 
 F.addEventListener('submit', Submitted);
 
 //Searchbar Engine Swap and Local Storage Save&Check
-window.onload = engineCheck();
+document.addEventListener('DOMContentLoaded', engineCheck);
 
 function engineCheck() {
   if (localStorage.getItem('engine') !== 'Google') {

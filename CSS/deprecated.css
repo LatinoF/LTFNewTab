@@ -1,0 +1,23 @@
+/* Classi CSS non più utilizzate, mantenute per reference */
+
+.meteo {
+  min-width: 222px;
+  max-width: 222px;
+  min-height: 96px;
+  max-height: 96px;
+  top: -10px;
+  left: -40px;
+  position: absolute;
+  border-radius: 8px;
+  overflow: hidden;
+  transform: scale(0.7);
+  margin: 0;
+}
+
+.weatherwidget-io {
+  text-decoration: none;
+}
+
+.chart-wrapper {
+  pointer-events: all !important;
+}

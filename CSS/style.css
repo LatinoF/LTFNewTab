@@ -76,24 +76,6 @@ a {
   transition: all 0.3s ease-out;
 }
 
-.meteo {
-  min-width: 222px;
-  max-width: 222px;
-  min-height: 96px;
-  max-height: 96px;
-  top: -10px;
-  left: -40px;
-  position: absolute;
-  border-radius: 8px;
-  overflow: hidden;
-  transform: scale(0.7);
-  margin: 0;
-}
-
-.weatherwidget-io {
-  text-decoration: none;
-}
-
 .toggle-container {
   display: flex;
   justify-content: flex-end;
@@ -113,6 +95,9 @@ a {
   transition: all 0.5s ease-in-out;
 }
 
+#toggle.rotate {
+  transform: rotate(360deg);
+}
 
 .wrapper {
   display: flex;
@@ -279,6 +264,11 @@ section {
   transition: 0.5s ease-in-out;
 }
 
+body.dark-mode .dark {
+  filter: grayscale(100%) invert(100%) brightness(100%);
+  color: black;
+}
+
 .mcw-box.mcw-white-theme {
   border: none !important;
 }
@@ -293,6 +283,36 @@ section {
 
 }
 
-.chart-wrapper{
-  pointer-events: all!important;
+@media (max-width: 1100px) {
+  .drawergrid,
+  .drawergridX3 {
+    grid-template-columns: repeat(4, 150px);
+  }
+  form {
+    width: 500px;
+  }
+}
+
+@media (max-width: 820px) {
+  .drawergrid,
+  .drawergridX3 {
+    grid-template-columns: repeat(3, 130px);
+  }
+  .item img {
+    width: 130px;
+    height: 87px;
+  }
+  form {
+    width: 400px;
+  }
+}
+
+@media (max-width: 550px) {
+  .drawergrid,
+  .drawergridX3 {
+    grid-template-columns: repeat(2, 130px);
+  }
+  form {
+    width: 280px;
+  }
 }
