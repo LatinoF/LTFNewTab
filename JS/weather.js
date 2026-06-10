@@ -24,11 +24,16 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}
     humidity.innerHTML = `${data.main.humidity}%`;
 
     //UV Index Fetch
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=minutely,hourly,daily,alerts&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${apiKey}`)
       .then(response => response.json())
-      .then(data => {
-        const uvIndex = data.current.uvi;
-        uvIndexElement.innerHTML = `${uvIndex}`;
+      .then(uviData => {
+        const now = Math.floor(Date.now() / 1000);
+        const isDaytime = now >= data.sys.sunrise && now <= data.sys.sunset;
+        if (isDaytime) {
+          uvIndexElement.innerHTML = `${Math.round(uviData.value)}`;
+        } else {
+          uvIndexElement.innerHTML = '0';
+        }
       })
       .catch(error => console.log(error));
   })

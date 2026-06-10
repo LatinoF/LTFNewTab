@@ -25,8 +25,23 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  transition: background-image 0.5s ease-in-out;
+}
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url(../Resources/BG-Dark.jpg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body.dark-mode::before {
+  opacity: 1;
 }
 
 .menu {

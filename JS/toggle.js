@@ -13,7 +13,6 @@ const isDarkModeEnabled = localStorage.getItem("isDarkModeEnabled");
 if (isDarkModeEnabled) {
   body.classList.add("dark-mode");
   toggle.setAttribute("src", "Resources/Icons/Moon.svg");
-  body.style.backgroundImage = "url('Resources/BG-Dark.jpg')";
   darkdivs.forEach(darkdiv => {
     darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
     darkdiv.style.color = 'black';
@@ -26,7 +25,6 @@ toggle.addEventListener("click", function () {
   if (body.classList.contains("dark-mode")) {
     toggle.setAttribute("src", "Resources/Icons/Moon.svg");
     toggle.classList.add("rotate");
-    body.style.backgroundImage = "url('Resources/BG-Dark.jpg')";
     darkdivs.forEach(darkdiv => {
       darkdiv.style.filter = 'grayscale(100%) invert(100%) brightness(100%)';
       darkdiv.style.color = 'black';
@@ -37,7 +35,6 @@ toggle.addEventListener("click", function () {
   } else {
     toggle.setAttribute("src", "Resources/Icons/Sun.svg");
     toggle.classList.remove("rotate");
-    body.style.backgroundImage = "url('Resources/BG-Light.jpg')";
     darkdivs.forEach(darkdiv => {
       darkdiv.style.filter = '';
       darkdiv.style.color = '#5e5e5e';//
