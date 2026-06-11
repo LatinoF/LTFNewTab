@@ -24,8 +24,17 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}
     wind.innerHTML = `${data.wind.speed} m/s`;
     humidity.innerHTML = `${data.main.humidity}%`;
 
-    //UV Index — endpoint deprecato, mostriamo N/A
-    uvIndexElement.innerHTML = 'N/A';
+    //UV Index — Open-Meteo API (gratuita, senza API key)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=42.38&longitude=14.14&current=uv_index&timezone=auto`)
+      .then(response => response.json())
+      .then(uvData => {
+        const uv = uvData.current.uv_index;
+        uvIndexElement.innerHTML = Math.round(uv);
+      })
+      .catch(error => {
+        console.log(error);
+        uvIndexElement.innerHTML = 'N/A';
+      });
   })
   .catch(error => console.log(error));
 }
