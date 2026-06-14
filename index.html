@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LTF New Tab</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <script src="https://code.iconify.design/iconify-icon/3.0.2/iconify-icon.min.js"></script>
 
   <link rel="stylesheet" href="CSS/style.css">
   <link rel="stylesheet" href="CSS/weather.css">
@@ -33,23 +33,23 @@
   <div class="weather-info">
     <ul>
       <li>
-        <img src="Resources/Meteocons/Static/thermometer-celsius.svg">
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/thermometer-celsius.svg">
         <span class="feels-like"></span>
       </li>
       <li>
-        <img src="Resources/Meteocons/Static/uv-index.svg">
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/uv-index.svg">
         <span class="uv-index"></span>
       </li>
       <li>
-        <img src="Resources/Meteocons/Static/humidity.svg">
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/humidity.svg">
         <span class="humidity"></span>
       </li>
       <li>
-        <img src="Resources/Meteocons/Static/wind.svg">
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/wind.svg">
         <span class="wind"></span>
       </li>
       <li>
-        <img src="Resources/Meteocons/Static/barometer.svg">
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/barometer.svg">
         <span class="pressure"></span>
       </li>
     </ul>
@@ -69,6 +69,12 @@
     <!-- Custom Context Menu BEGIN -->
     <div class="contextmenu" id="menu">
       <ul class="contextmenu-list">
+        <li class="contextmenu-item">
+          <button class="contextmenu-button" onclick="swapDuckDuckGo()" id="aDuckDuckGo">
+            <img src="Resources/Icons/DuckDuckGo.svg" style="width:24px; margin-right:6px;">
+            <span>DuckDuckGo</span>
+          </button>
+        </li>
         <li class="contextmenu-item">
           <button class="contextmenu-button" onclick="swapGoogle()" id="aGoogle">
             <img src="Resources/Icons/Google.svg" style="width:24px; margin-right:6px;">
@@ -97,45 +103,7 @@
 
 
     <!-- Drawers BEGIN -->
-    <div class="drawercontainer">
-      <section class="drawer1">
-        <div class="drawergrid">
-          <div class="item"><a href="https://www.google.it/"><img src="Resources/Tiles/Google.jpg"></a></div>
-          <div class="item"><a href="https://www.youtube.com/feed/subscriptions"><img src="Resources/Tiles/Youtube.jpg"></a></div>
-          <div class="item"><a href="https://www.facebook.com/?sk=h_chr"><img src="Resources/Tiles/Facebook.png"></a></div>
-          <div class="item"><a href="https://www.twitch.tv/directory/following/channels"><img src="Resources/Tiles/Twitch.jpg"></a></div>
-          <div class="item"><a href="https://www.primevideo.com/"><img src="Resources/Tiles/PrimeVideo.jpg"></a></div>
-          <div class="item"><a href="https://www.amazon.it"><img src="Resources/Tiles/Amazon.jpg"></a></div>
-
-          <div class="item"><a href="https://jellyfin.latinof.com"><img src="Resources/Tiles/Jellyfin.svg"></a></div>
-          <div class="item"><a href="https://web.stremio.com/#/"><img src="Resources/Tiles/Stremio.svg"></a></div>
-          <div class="item"><a href="https://www.icv-crew.com/forum/index.php"><img src="Resources/Tiles/ICV.jpg"></a></div>
-          <div class="item"><a href="https://www.deviantart.com/"><img src="Resources/Tiles/DeviantArt.png"></a></div>
-          <div class="item"><a href="https://new.reddit.com/new/"><img src="Resources/Tiles/Reddit.jpg"></a></div>
-          <div class="item"><a href="https://best.aliexpress.com/?lan=en"><img src="Resources/Tiles/Aliexpress.jpg"></a></div>
-        </div>
-      </section>
-      <section class="drawer2">
-        <div class="drawergrid">
-          <div class="item"><a href="https://www.unidav.it/"><img src="Resources/Tiles/Unidav.jpg"></a></div>
-          <div class="item"><a href="https://www.didatticaunidav.it/"><img src="Resources/Tiles/DidatticaUnidav.jpg"></a></div>
-          <div class="item"><a href="https://www.esamiunidav.com/"><img src="Resources/Tiles/EsamiUnidav.jpg"></a></div>
-          <div class="item"><a href="https://flexsuite.it/"><img src="Resources/Tiles/FlexTax.jpg"></a></div>
-          <div class="item"><a href="https://web.whatsapp.com/"><img src="Resources/Tiles/WhatsApp.jpg"></a></div>
-          <div class="item"><a href="https://web.telegram.org/z/#777000"><img src="Resources/Tiles/Telegram.jpg"></a></div>
-
-          <div class="item"><a href="https://auth.ente.io/auth"><img src="Resources/Tiles/EnteAuth.jpg"></a></div>
-          <div class="item"><a href="https://torrentgalaxy.one/#results"><img src="Resources/Tiles/TGx.jpg"></a></div>
-          <div class="item"><a href="https://outlook.live.com/mail/0/inbox"><img src="Resources/Tiles/Outlook.jpg"></a></div>
-          <div class="item"><a href="https://onedrive.live.com/"><img src="Resources/Tiles/OneDrive.jpg"></a></div>
-          <div class="item"><a href="https://www.intesasanpaolo.com/it/persone-e-famiglie/login-page.html"><img src="Resources/Tiles/ISP.jpg"></a></div>
-          <div class="item"><a href="https://www.instagram.com/"><img src="Resources/Tiles/Instagram.jpg"></a></div>
-        
-          <!-- //https://fakeimg.pl/200x100/?retina=1&text=150x100&font=noto -->
-
-        </div>
-      </section>
-    </div>
+    <div class="drawercontainer" id="drawercontainer"></div>
     <!-- Drawers END -->
 
 <!-- Crypto Widget BEGIN -->
@@ -155,10 +123,23 @@
 
   </div>
 
+  <script defer src="./JS/defaults.js"></script>
   <script defer src="./JS/script.js"></script>
   <script defer src="./JS/toggle.js"></script>
+  <script defer src="./JS/drawer.js"></script>
   <script defer src="./JS/weather.js"></script>
-  <script async src="https://www.cryptohopper.com/widgets/js/script"></script>
+  <script async src="./JS/crypto_hopper_widget_ltfmod.js"></script>
+  <!-- <script async src="https://www.cryptohopper.com/widgets/js/script"></script> -->
+  <div id="fabContainer">
+    <div class="fab-sub-buttons">
+      <button class="fab-sub fab-sub-settings" id="fabSettings" title="Settings"><iconify-icon icon="fluent:settings-24-filled"></iconify-icon></button>
+      <button class="fab-sub fab-sub-import" id="fabImport" title="Import"><iconify-icon icon="fluent:arrow-upload-24-filled"></iconify-icon></button>
+      <button class="fab-sub fab-sub-export" id="fabExport" title="Export"><iconify-icon icon="fluent:arrow-download-24-filled"></iconify-icon></button>
+      <button class="fab-sub fab-sub-reset" id="fabReset" title="Reset to defaults"><iconify-icon icon="fluent:arrow-sync-24-filled"></iconify-icon></button>
+    </div>
+    <button id="fabMain"><iconify-icon icon="fluent:edit-24-filled"></iconify-icon></button>
+  </div>
+  <input type="file" id="fabFileInput" accept=".json" style="display:none">
   
 </body>
 

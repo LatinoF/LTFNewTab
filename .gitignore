@@ -1,4 +1,9 @@
 dist
 *.7z
+*.zip
 .opencode
 backups
+SESSION.md
+Snippets
+*.free
+*deprecated*

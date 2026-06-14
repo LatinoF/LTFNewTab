@@ -1,6 +1,3 @@
-// API key — restringi nel dashboard OpenWeatherMap (HTTP referrers: latinof.github.io/*, localhost/*)
-const apiKey = "bc1301b0b23fe6ef52032a7e5bb70820";
-const city = "Torrevecchia Teatina";
 const weatherIcon = document.querySelector(".weather-icon");
 const temperature = document.querySelector(".temperature");
 const feelsLike = document.querySelector(".feels-like");
@@ -12,31 +9,33 @@ const humidity = document.querySelector(".humidity");
 
 // function to fetch weather data and update the UI
 function fetchWeatherData() {
-fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-  .then(response => response.json())
-  .then(data => {
-    const weatherCode = data.weather[0].id;
-    const iconPath = getWeatherIconPath(weatherCode, data.sys.sunrise, data.sys.sunset);
-    weatherIcon.setAttribute("src", iconPath);
-    temperature.innerHTML = `${Math.round(data.main.temp)}&deg;C`;
-    feelsLike.innerHTML = `${Math.round(data.main.feels_like)}&deg;C`;
-    pressure.innerHTML = `${data.main.pressure} hPa`;
-    wind.innerHTML = `${data.wind.speed} m/s`;
-    humidity.innerHTML = `${data.main.humidity}%`;
+  const settings = getSettings();
+  const lat = settings.weatherLat || DEFAULT_SETTINGS.weatherLat;
+  const lon = settings.weatherLon || DEFAULT_SETTINGS.weatherLon;
 
-    //UV Index — Open-Meteo API (gratuita, senza API key)
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=42.38&longitude=14.14&current=uv_index&timezone=auto`)
-      .then(response => response.json())
-      .then(uvData => {
-        const uv = uvData.current.uv_index;
-        uvIndexElement.innerHTML = Math.round(uv);
-      })
-      .catch(error => {
-        console.log(error);
-        uvIndexElement.innerHTML = 'N/A';
-      });
-  })
-  .catch(error => console.log(error));
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+    `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,surface_pressure,uv_index` +
+    `&daily=sunrise,sunset&timezone=auto&forecast_days=1`)
+    .then(response => response.json())
+    .then(data => {
+      const current = data.current;
+      const daily = data.daily;
+
+      // Parse sunrise/sunset (ISO 8601 format)
+      const sunrise = new Date(daily.sunrise[0]).getTime() / 1000;
+      const sunset = new Date(daily.sunset[0]).getTime() / 1000;
+
+      const weatherCode = current.weather_code;
+      const iconPath = getWeatherIconPath(weatherCode, sunrise, sunset);
+      weatherIcon.setAttribute("src", iconPath);
+      temperature.innerHTML = `${Math.round(current.temperature_2m)}&deg;C`;
+      feelsLike.innerHTML = `${Math.round(current.apparent_temperature)}&deg;C`;
+      pressure.innerHTML = `${Math.round(current.surface_pressure)} hPa`;
+      wind.innerHTML = `${current.wind_speed_10m} km/h`;
+      humidity.innerHTML = `${current.relative_humidity_2m}%`;
+      uvIndexElement.innerHTML = Math.round(current.uv_index);
+    })
+    .catch(error => console.log(error));
 }
 
 // initial fetch of weather data
@@ -49,34 +48,40 @@ setInterval(fetchWeatherData, 10*60000);
 function getWeatherIconPath(weatherCode, sunrise, sunset) {
   const currentTime = new Date().getTime() / 1000;
   const isDaytime = currentTime >= sunrise && currentTime <= sunset;
+  const baseUrl = "https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/";
 
-  if (weatherCode >= 200 && weatherCode < 300) {
-    //Thunderstorm
-    return "Resources/Meteocons/thunderstorm.svg"; 
-  } else if (weatherCode >= 300 && weatherCode < 400) {
-    //Showers
-    return isDaytime ? "Resources/Meteocons/partly-cloudy-day-drizzle.svg" : "Resources/Meteocons/partly-cloudy-night-drizzle.svg"; 
-  } else if (weatherCode >= 500 && weatherCode < 600) {
-    //Rain
-    return "Resources/Meteocons/rain.svg";  
-  } else if (weatherCode >= 600 && weatherCode < 700) {
-    //Snow
-    return "Resources/Meteocons/snow.svg";  
-  } else if (weatherCode >= 700 && weatherCode < 800) {
-    //Fog
-    return "Resources/Meteocons/fog.svg";  
-  } else if (weatherCode === 800) {
-    //Clear
-    return isDaytime ? "Resources/Meteocons/clear-day.svg" : "Resources/Meteocons/clear-night.svg";
-  } else if (weatherCode === 801 || weatherCode === 802) {
-    //Cloudy
-    return isDaytime ? "Resources/Meteocons/partly-cloudy-day.svg" : "Resources/Meteocons/partly-cloudy-night.svg"; 
-  } else if (weatherCode === 803 || weatherCode === 804) {
-    //Overcast
-    return isDaytime ? "Resources/Meteocons/overcast-day.svg" : "Resources/Meteocons/overcast-night.svg"; 
+  if (weatherCode === 0) {
+    // Clear sky
+    return isDaytime ? baseUrl + "clear-day.svg" : baseUrl + "clear-night.svg";
+  } else if (weatherCode === 1 || weatherCode === 2) {
+    // Mainly clear, partly cloudy
+    return isDaytime ? baseUrl + "partly-cloudy-day.svg" : baseUrl + "partly-cloudy-night.svg";
+  } else if (weatherCode === 3) {
+    // Overcast
+    return isDaytime ? baseUrl + "overcast-day.svg" : baseUrl + "overcast-night.svg";
+  } else if (weatherCode === 45 || weatherCode === 48) {
+    // Fog and depositing rime fog
+    return baseUrl + "fog.svg";
+  } else if (weatherCode >= 51 && weatherCode <= 57) {
+    // Drizzle: Light, moderate, and dense intensity
+    // Freezing Drizzle: Light and dense intensity
+    return isDaytime ? baseUrl + "partly-cloudy-day-drizzle.svg" : baseUrl + "partly-cloudy-night-drizzle.svg";
+  } else if ((weatherCode >= 61 && weatherCode <= 67) || (weatherCode >= 80 && weatherCode <= 82)) {
+    // Rain: Slight, moderate and heavy intensity
+    // Freezing Rain: Light and heavy intensity
+    // Rain showers: Slight, moderate and violent intensity
+    return baseUrl + "rain.svg";
+  } else if ((weatherCode >= 71 && weatherCode <= 77) || weatherCode === 85 || weatherCode === 86) {
+    // Snow fall: Slight, moderate, and heavy intensity
+    // Snow grains
+    // Snow showers slight and heavy
+    return baseUrl + "snow.svg";
+  } else if (weatherCode >= 95 && weatherCode <= 99) {
+    // Thunderstorm: Slight or moderate
+    // Thunderstorm with slight and heavy hail
+    return baseUrl + "thunderstorms.svg";
   } else {
-    //NotAviable
-    return "Resources/Meteocons/not-available.svg";
+    return baseUrl + "not-available.svg";
   }
 }
 
@@ -85,17 +90,19 @@ function getWeatherIconPath(weatherCode, sunrise, sunset) {
 const weatherWidget = document.querySelector('.weather-widget');
 const weatherInfo = document.querySelector('.weather-info');
 
-weatherWidget.addEventListener('mousemove', (event) => {
-  const mouseX = event.clientX;
-  const mouseY = event.clientY;
+if (weatherWidget && weatherInfo) {
+  weatherWidget.addEventListener('mousemove', (event) => {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
 
-  weatherInfo.style.top = mouseY + 8 + 'px';
-  weatherInfo.style.left = mouseX + 8 + 'px';
-  weatherInfo.style.visibility = 'visible';
-  weatherInfo.style.opacity = 1;
-});
+    weatherInfo.style.top = mouseY + 8 + 'px';
+    weatherInfo.style.left = mouseX + 8 + 'px';
+    weatherInfo.style.visibility = 'visible';
+    weatherInfo.style.opacity = 1;
+  });
 
-weatherWidget.addEventListener('mouseleave', () => {
-  weatherInfo.style.visibility = 'hidden';
-  weatherInfo.style.opacity = 0;
-});
+  weatherWidget.addEventListener('mouseleave', () => {
+    weatherInfo.style.visibility = 'hidden';
+    weatherInfo.style.opacity = 0;
+  });
+}

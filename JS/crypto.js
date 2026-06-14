@@ -120,7 +120,7 @@ async function updateCurrentPrice() {
     const marketIconElement = document.getElementById(`${coin}MarketIcon`);
     marketElement.textContent = `${Math.abs(priceChangePercentage).toFixed(2)}%`;
     marketElement.style.color = marketIconElement.style.color = priceChangePercentage > 0 ? 'green' : 'red';
-    marketIconElement.className = `ti ti-arrow-big-${priceChangePercentage > 0 ? 'up' : 'down'}-filled`;
+    marketIconElement.setAttribute('icon', `fluent:arrow-circle-${priceChangePercentage > 0 ? 'up' : 'down'}-24-filled`);
   }
 }
 

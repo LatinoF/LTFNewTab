@@ -27,7 +27,7 @@ document.getElementById("EngineSwapper").oncontextmenu = function rightClick(e) 
 //Searchbar Search
 const F = document.getElementById('form');
 const Q = document.getElementById('query');
-const searchengine = 'https://www.google.com/search?q=';
+let searchengine = 'https://www.google.com/search?q=';
 var Site = '';
 
 function Submitted(event) {
@@ -42,8 +42,11 @@ F.addEventListener('submit', Submitted);
 document.addEventListener('DOMContentLoaded', engineCheck);
 
 function engineCheck() {
-  if (localStorage.getItem('engine') !== 'Google') {
+  const engine = localStorage.getItem('engine');
+  if (engine === 'Fanart') {
     swapTV();
+  } else if (engine === 'DuckDuckGo') {
+    swapDuckDuckGo();
   } else {
     swapGoogle();
   }
@@ -51,16 +54,29 @@ function engineCheck() {
 
 function swapGoogle() {
   Site = '';
+  searchengine = 'https://www.google.com/search?q=';
   localStorage.setItem('engine', 'Google');
   document.getElementById("aGoogle").style.fontWeight = "bold";
   document.getElementById("aTV").style.fontWeight = "normal";
+  document.getElementById("aDuckDuckGo").style.fontWeight = "normal";
 }
 
 function swapTV() {
   Site = 'site%3Afanart.tv';
+  searchengine = 'https://www.google.com/search?q=';
   localStorage.setItem('engine', 'Fanart');
   document.getElementById("aTV").style.fontWeight = "bold";
   document.getElementById("aGoogle").style.fontWeight = "normal";
+  document.getElementById("aDuckDuckGo").style.fontWeight = "normal";
+}
+
+function swapDuckDuckGo() {
+  Site = '';
+  searchengine = 'https://duckduckgo.com/?q=';
+  localStorage.setItem('engine', 'DuckDuckGo');
+  document.getElementById("aDuckDuckGo").style.fontWeight = "bold";
+  document.getElementById("aGoogle").style.fontWeight = "normal";
+  document.getElementById("aTV").style.fontWeight = "normal";
 }
 
 
@@ -72,6 +88,17 @@ setInterval(function () {
   var textField = document.getElementById("query");
   textField.placeholder = placeholders[index];
 }, 10000); // change the placeholder text every 10 seconds
+
+// Focus searchbar on page load if setting is enabled
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var settings = JSON.parse(localStorage.getItem('ltf_settings'));
+    if (settings && settings.focusSearchbar) {
+      var query = document.getElementById('query');
+      if (query) query.focus();
+    }
+  } catch(e) {}
+});
 
 
 
