@@ -3,6 +3,8 @@
 :root {
   --default-tile-bg: transparent;
   --default-tile-text: #ffffff;
+  --element-color: #5e5e5e;
+  --bg-url: url(../Resources/Backgrounds/GoldenGate_Light.jpg);
 }
 
 *,
@@ -21,10 +23,6 @@ p,
 }
 
 body {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(../Resources/BG-Light.jpg);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -32,21 +30,20 @@ body {
   overflow: hidden;
 }
 
-body::before {
+body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url(../Resources/BG-Dark.jpg);
+  background-image: var(--bg-url);
   background-size: cover;
   background-position: center;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: -1;
   pointer-events: none;
+  transition: filter 0.4s ease;
+  z-index: 0;
 }
 
-body.dark-mode::before {
-  opacity: 1;
+body.dark-mode::after {
+  filter: grayscale(1);
 }
 
 .menu {
@@ -93,14 +90,24 @@ a {
 
 }
 
-#toggle {
+.toggle-icon {
   width: 32px;
   height: 32px;
+  color: var(--element-color, #5e5e5e);
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
-#toggle.rotate {
+.toggle-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+body.dark-mode .toggle-icon {
+  color: #ffffff;
+}
+
+.toggle-icon.rotate {
   transform: rotate(360deg);
 }
 
@@ -112,6 +119,7 @@ a {
   width: 100%;
   flex-flow: column;
   position: fixed;
+  z-index: 1;
 }
 
 .contextmenu {
@@ -213,7 +221,6 @@ input {
   height: 100%;
   max-height: 372px;
   position: relative;
-
 }
 
 .drawercontainer::-webkit-scrollbar {
@@ -270,6 +277,11 @@ section {
   width: 150px;
   height: 100px;
   display: block;
+  transition: filter 0.4s ease;
+}
+
+body.dark-mode .item img {
+  filter: grayscale(1);
 }
 
 /* Emblem mode: logo + text that adapts to tile size */
@@ -826,6 +838,208 @@ body.dark-mode .settings-color-label { color: #aaa; }
   color: #777;
 }
 body.dark-mode .settings-color-item-label { color: #888; }
+
+.settings-bg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+.bg-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  background: #fafafa;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.bg-thumb:hover {
+  border-color: #aaa;
+  transform: scale(1.03);
+}
+.bg-thumb.active {
+  border-color: #007bff;
+  background: #e8f0fe;
+}
+.bg-thumb-preview {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 6px;
+  background-size: cover;
+  background-position: center;
+  background-color: #ddd;
+}
+.bg-thumb span {
+  font: 11px 'Nunito', sans-serif;
+  color: #555;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+body.dark-mode .bg-thumb {
+  border-color: #444;
+  background: #2a2a2a;
+}
+body.dark-mode .bg-thumb:hover {
+  border-color: #888;
+}
+body.dark-mode .bg-thumb.active {
+  border-color: #007bff;
+  background: #1a2a3a;
+}
+body.dark-mode .bg-thumb span {
+  color: #aaa;
+}
+
+/* Custom background tile — Add button */
+.bg-thumb-custom {
+  position: relative;
+}
+.bg-thumb-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px dashed #ccc;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+  min-height: 100px;
+}
+.bg-thumb-add:hover {
+  border-color: #007bff;
+  background: rgba(0,123,255,0.04);
+  transform: scale(1.03);
+}
+.bg-thumb-add-icon {
+  font-size: 36px;
+  line-height: 1;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bg-thumb-add:hover .bg-thumb-add-icon {
+  color: #007bff;
+}
+.bg-thumb-add span {
+  font: 11px 'Nunito', sans-serif;
+  color: #888;
+}
+.bg-thumb-add:hover span {
+  color: #007bff;
+}
+body.dark-mode .bg-thumb-add {
+  border-color: #555;
+}
+body.dark-mode .bg-thumb-add:hover {
+  border-color: #4dabf7;
+  background: rgba(77,171,247,0.08);
+}
+body.dark-mode .bg-thumb-add-icon {
+  color: #777;
+}
+body.dark-mode .bg-thumb-add:hover .bg-thumb-add-icon {
+  color: #4dabf7;
+}
+body.dark-mode .bg-thumb-add span {
+  color: #888;
+}
+body.dark-mode .bg-thumb-add:hover span {
+  color: #4dabf7;
+}
+/* Remove button on custom tiles */
+.bg-thumb-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: #dc3545;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.bg-thumb-custom:hover .bg-thumb-remove {
+  display: flex;
+}
+.bg-thumb-remove:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.settings-element-color {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Settings tab bar */
+.settings-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 16px;
+  padding-bottom: 0;
+  overflow-x: auto;
+}
+.settings-tab {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  font: 600 13px 'Nunito', sans-serif;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.settings-tab:hover {
+  color: #555;
+}
+.settings-tab.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+body.dark-mode .settings-tabs {
+  border-bottom-color: #333;
+}
+body.dark-mode .settings-tab {
+  color: #888;
+}
+body.dark-mode .settings-tab:hover {
+  color: #ccc;
+}
+body.dark-mode .settings-tab.active {
+  color: #4dabf7;
+  border-bottom-color: #4dabf7;
+}
+
+/* Settings tab panels */
+.settings-tab-panel {
+  display: none;
+}
+.settings-tab-panel.active {
+  display: block;
+}
 
 /* Settings modal picker canvas sizes */
 .modal-box-settings .hue-canvas { height: 16px; }

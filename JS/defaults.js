@@ -12,8 +12,13 @@ const ICONS = {
   search: 'fluent:search-24-filled',
   grid: 'fluent:grid-24-filled',
   chart: 'material-symbols:area-chart-rounded',
-  textField: 'solar:text-field-focus-bold'
+  textField: 'solar:text-field-focus-bold',
+  add: 'material-symbols:add-rounded'
 };
+
+const SVG_SUN = '<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 0L16.8 7.20001L7.20001 7.20001L7.20001 16.8L0 24L7.20001 31.2L7.20001 40.8L16.8 40.8L24 48L31.2 40.8L40.8 40.8L40.8 31.2L48 24L40.8 16.8L40.8 7.20001L31.2 7.20001L24 0L24 0ZM24 12C30.6264 12 36 17.3736 36 24C36 30.6264 30.6264 36 24 36C17.3736 36 12 30.6264 12 24C12 17.3736 17.3736 12 24 12L24 12Z" fill="currentColor" fill-rule="evenodd" stroke="none" /></svg>';
+
+const SVG_MOON = '<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g transform="translate(48, 0) scale(-1, 1)"><path d="M15.4359 0.00149536C15.1925 0.0109253 14.9534 0.0686646 14.7324 0.171356C6.1678 4.16995 0 12.8208 0 22.8958C0 36.7399 11.2587 47.9985 25.1028 47.9985C35.1777 47.9985 43.8286 41.8307 47.8272 33.2661C48.1619 32.5497 48.0008 31.6994 47.4271 31.155C46.8535 30.6107 45.996 30.4943 45.298 30.8661C42.3824 32.4196 39.0707 33.2972 35.5282 33.2972C24.0001 33.2972 14.7013 23.9984 14.7013 12.4703C14.7013 8.92783 15.5789 5.61612 17.1324 2.70056C17.4414 2.11929 17.4159 1.41718 17.0656 0.859833C16.7153 0.30249 16.0937 -0.0249023 15.4359 0.00149536L15.4359 0.00149536Z" fill="currentColor" stroke="none" /></g></svg>';
 
 const DEFAULT_SETTINGS = {
   lightTileBg: '',
@@ -27,8 +32,16 @@ const DEFAULT_SETTINGS = {
   focusSearchbar: false,
   weatherCity: 'Torrevecchia Teatina',
   weatherLat: 42.38,
-  weatherLon: 14.14
+  weatherLon: 14.14,
+  bgUrl: '',
+  elementColor: '#5e5e5e',
+  customBackgrounds: []
 };
+
+const BACKGROUNDS = [
+  'GoldenGate_Light.jpg',
+  'GoldenGate_Color.png'
+];
 
 const DEFAULT_SITES = [
   { id: 'd1',  name: 'Google',          url: 'https://www.google.it/',                        tile: 'Resources/Tiles/Google.jpg' },

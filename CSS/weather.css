@@ -22,7 +22,7 @@
 .temperature {
   font-weight: bold;
   font-size: 1.5rem;
-  color: #5e5e5e;
+  color: var(--element-color);
 }
 
 .weather-info{

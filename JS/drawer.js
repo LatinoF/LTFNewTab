@@ -65,6 +65,18 @@ function applySettings() {
   if (drawers) drawers.style.display = settings.showDrawers ? '' : 'none';
   if (crypto) crypto.style.display = settings.showCrypto ? '' : 'none';
 
+  // Background URL
+  const bgUrl = settings.bgUrl || '';
+  if (bgUrl) {
+    root.style.setProperty('--bg-url', 'url(' + bgUrl + ')');
+  } else {
+    root.style.setProperty('--bg-url', 'url(../Resources/Backgrounds/GoldenGate_Light.jpg)');
+  }
+
+  // Element color
+  const elemColor = settings.elementColor || '#5e5e5e';
+  root.style.setProperty('--element-color', elemColor);
+
   // Refresh weather data if settings changed
   if (typeof fetchWeatherData === 'function') fetchWeatherData();
 }
@@ -913,6 +925,40 @@ function showSettingsModal() {
   closeModal();
   var settings = getSettings();
 
+  var localCustomBackgrounds = (settings.customBackgrounds || []).slice();
+
+  function renderBgGrid() {
+    var grid = overlay.querySelector('#settBgGrid');
+    var html = '';
+    // Default tile
+    html += '<div class="bg-thumb' + (!settings.bgUrl ? ' active' : '') + '" data-bg="">' +
+      '<div class="bg-thumb-preview" style="background-image: url(Resources/Backgrounds/GoldenGate_Light.jpg)"></div>' +
+      '<span>Default</span>' +
+    '</div>';
+    // Built-in backgrounds
+    BACKGROUNDS.forEach(function(name) {
+      var url = '../Resources/Backgrounds/' + name;
+      html += '<div class="bg-thumb' + (settings.bgUrl === url ? ' active' : '') + '" data-bg="' + url + '">' +
+        '<div class="bg-thumb-preview" style="background-image: url(Resources/Backgrounds/' + name + ')"></div>' +
+        '<span>' + name.replace(/\.[^.]+$/, '') + '</span>' +
+      '</div>';
+    });
+    // Custom backgrounds
+    localCustomBackgrounds.forEach(function(url, idx) {
+      html += '<div class="bg-thumb bg-thumb-custom' + (settings.bgUrl === url ? ' active' : '') + '" data-bg="' + url + '" data-custom-idx="' + idx + '">' +
+        '<div class="bg-thumb-preview" style="background-image: url(' + url + ')"></div>' +
+        '<span>Custom ' + (idx + 1) + '</span>' +
+        '<button class="bg-thumb-remove" title="Remove">&times;</button>' +
+      '</div>';
+    });
+    // Add tile
+    html += '<div class="bg-thumb bg-thumb-add" data-action="add-custom">' +
+      '<div class="bg-thumb-add-icon"><iconify-icon icon="' + ICONS.add + '"></iconify-icon></div>' +
+      '<span>Custom</span>' +
+    '</div>';
+    grid.innerHTML = html;
+  }
+
   var overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.innerHTML =
@@ -922,60 +968,89 @@ function showSettingsModal() {
         '<button class="modal-close" title="Close"><iconify-icon icon="' + ICONS.close + '"></iconify-icon></button>' +
       '</div>' +
       '<div class="modal-body">' +
-        '<div class="settings-section">' +
-          '<div class="settings-section-title">Default tile appearance</div>' +
-          '<div class="settings-appearance-grid">' +
-            '<div class="settings-appearance-col">' +
-              '<span class="settings-color-label">Light mode</span>' +
-              '<div class="settings-color-item" id="pickerLightBg">' +
-                '<span class="settings-color-item-label">Background</span>' +
-                '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
-                '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
-              '</div>' +
-              '<div class="settings-color-item" id="pickerLightText">' +
-                '<span class="settings-color-item-label">Text</span>' +
-                '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
-                '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
-              '</div>' +
-            '</div>' +
-            '<div class="settings-appearance-col">' +
-              '<span class="settings-color-label">Dark mode</span>' +
-              '<div class="settings-color-item" id="pickerDarkBg">' +
-                '<span class="settings-color-item-label">Background</span>' +
-                '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#1a1a2e"></div>' +
-                '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
-              '</div>' +
-              '<div class="settings-color-item" id="pickerDarkText">' +
-                '<span class="settings-color-item-label">Text</span>' +
-                '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
-                '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
-              '</div>' +
+        '<div class="settings-tabs">' +
+          '<button class="settings-tab active" data-tab="background">Background</button>' +
+          '<button class="settings-tab" data-tab="colors">Colors</button>' +
+          '<button class="settings-tab" data-tab="widgets">Widgets</button>' +
+          '<button class="settings-tab" data-tab="weather">Weather</button>' +
+          '<button class="settings-tab" data-tab="data">Data</button>' +
+        '</div>' +
+        '<div class="settings-tab-panel active" data-tab="background">' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Background</div>' +
+            '<div class="settings-bg-grid" id="settBgGrid"></div>' +
+          '</div>' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Temp and dark mode toggle color</div>' +
+            '<div class="settings-element-color" id="pickerElementColor">' +
+              '<span class="settings-color-item-label">Weather &amp; toggle</span>' +
+              '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#5e5e5e"></div>' +
+              '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
             '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="settings-section">' +
-          '<div class="settings-section-title">Widgets</div>' +
-          '<div class="settings-widgets-grid">' +
-            '<div class="widget-card' + (settings.showWeather ? ' active' : '') + '" data-widget="settWeather"><input type="checkbox" id="settWeather"' + (settings.showWeather ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.weather + '"></iconify-icon><span>Meteo</span></div>' +
-            '<div class="widget-card' + (settings.showSearchbar ? ' active' : '') + '" data-widget="settSearchbar"><input type="checkbox" id="settSearchbar"' + (settings.showSearchbar ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.search + '"></iconify-icon><span>Searchbar</span></div>' +
-            '<div class="widget-card' + (settings.showDrawers ? ' active' : '') + '" data-widget="settDrawers"><input type="checkbox" id="settDrawers"' + (settings.showDrawers ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.grid + '"></iconify-icon><span>Drawers</span></div>' +
-            '<div class="widget-card' + (settings.showCrypto ? ' active' : '') + '" data-widget="settCrypto"><input type="checkbox" id="settCrypto"' + (settings.showCrypto ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.chart + '"></iconify-icon><span>Crypto</span></div>' +
-            '<div class="widget-card' + (settings.focusSearchbar ? ' active' : '') + '" data-widget="settFocusSearchbar"><input type="checkbox" id="settFocusSearchbar"' + (settings.focusSearchbar ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.textField + '"></iconify-icon><span>Auto-focus</span></div>' +
+        '<div class="settings-tab-panel" data-tab="colors">' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Default tile appearance</div>' +
+            '<div class="settings-appearance-grid">' +
+              '<div class="settings-appearance-col">' +
+                '<span class="settings-color-label">Light mode</span>' +
+                '<div class="settings-color-item" id="pickerLightBg">' +
+                  '<span class="settings-color-item-label">Background</span>' +
+                  '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
+                  '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
+                '</div>' +
+                '<div class="settings-color-item" id="pickerLightText">' +
+                  '<span class="settings-color-item-label">Text</span>' +
+                  '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
+                  '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="settings-appearance-col">' +
+                '<span class="settings-color-label">Dark mode</span>' +
+                '<div class="settings-color-item" id="pickerDarkBg">' +
+                  '<span class="settings-color-item-label">Background</span>' +
+                  '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#1a1a2e"></div>' +
+                  '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
+                '</div>' +
+                '<div class="settings-color-item" id="pickerDarkText">' +
+                  '<span class="settings-color-item-label">Text</span>' +
+                  '<div class="color-row"><input type="text" class="color-hex" maxlength="7" placeholder="#ffffff"></div>' +
+                  '<div class="picker-area"><canvas class="hue-canvas"></canvas><canvas class="sv-canvas"></canvas></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="settings-section">' +
-          '<div class="settings-section-title">Weather location</div>' +
-          '<div class="settings-coords-row" style="position:relative;">' +
-            '<label>City <input type="text" id="settWeatherCity" value="' + (settings.weatherCity || '') + '" placeholder="e.g. Rome" autocomplete="off"></label>' +
-            '<div id="settCityAutocomplete" class="city-autocomplete-dropdown" style="display:none;"></div>' +
+        '<div class="settings-tab-panel" data-tab="widgets">' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Widgets</div>' +
+            '<div class="settings-widgets-grid">' +
+              '<div class="widget-card' + (settings.showWeather ? ' active' : '') + '" data-widget="settWeather"><input type="checkbox" id="settWeather"' + (settings.showWeather ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.weather + '"></iconify-icon><span>Meteo</span></div>' +
+              '<div class="widget-card' + (settings.showSearchbar ? ' active' : '') + '" data-widget="settSearchbar"><input type="checkbox" id="settSearchbar"' + (settings.showSearchbar ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.search + '"></iconify-icon><span>Searchbar</span></div>' +
+              '<div class="widget-card' + (settings.showDrawers ? ' active' : '') + '" data-widget="settDrawers"><input type="checkbox" id="settDrawers"' + (settings.showDrawers ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.grid + '"></iconify-icon><span>Drawers</span></div>' +
+              '<div class="widget-card' + (settings.showCrypto ? ' active' : '') + '" data-widget="settCrypto"><input type="checkbox" id="settCrypto"' + (settings.showCrypto ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.chart + '"></iconify-icon><span>Crypto</span></div>' +
+              '<div class="widget-card' + (settings.focusSearchbar ? ' active' : '') + '" data-widget="settFocusSearchbar"><input type="checkbox" id="settFocusSearchbar"' + (settings.focusSearchbar ? ' checked' : '') + ' style="display:none"><iconify-icon icon="' + ICONS.textField + '"></iconify-icon><span>Auto-focus</span></div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="settings-section">' +
-          '<div class="settings-section-title">Data</div>' +
-          '<div class="settings-actions">' +
-            '<button type="button" class="modal-btn modal-btn-cancel" id="settExport"><iconify-icon icon="' + ICONS.arrowDownload + '"></iconify-icon> Export</button>' +
-            '<button type="button" class="modal-btn modal-btn-cancel" id="settImport"><iconify-icon icon="' + ICONS.arrowUpload + '"></iconify-icon> Import</button>' +
-            '<button type="button" class="modal-btn modal-btn-danger" id="settReset"><iconify-icon icon="' + ICONS.reset + '"></iconify-icon> Reset</button>' +
+        '<div class="settings-tab-panel" data-tab="weather">' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Weather location</div>' +
+            '<div class="settings-coords-row" style="position:relative;">' +
+              '<label>City <input type="text" id="settWeatherCity" value="' + (settings.weatherCity || '') + '" placeholder="e.g. Rome" autocomplete="off"></label>' +
+              '<div id="settCityAutocomplete" class="city-autocomplete-dropdown" style="display:none;"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="settings-tab-panel" data-tab="data">' +
+          '<div class="settings-section">' +
+            '<div class="settings-section-title">Data</div>' +
+            '<div class="settings-actions">' +
+              '<button type="button" class="modal-btn modal-btn-cancel" id="settExport"><iconify-icon icon="' + ICONS.arrowDownload + '"></iconify-icon> Export</button>' +
+              '<button type="button" class="modal-btn modal-btn-cancel" id="settImport"><iconify-icon icon="' + ICONS.arrowUpload + '"></iconify-icon> Import</button>' +
+              '<button type="button" class="modal-btn modal-btn-danger" id="settReset"><iconify-icon icon="' + ICONS.reset + '"></iconify-icon> Reset</button>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -993,7 +1068,8 @@ function showSettingsModal() {
     pickerLightBg: 'lightTileBg',
     pickerLightText: 'lightTileText',
     pickerDarkBg: 'darkTileBg',
-    pickerDarkText: 'darkTileText'
+    pickerDarkText: 'darkTileText',
+    pickerElementColor: 'elementColor'
   };
   var pickers = {};
   Object.keys(pickerMap).forEach(function (pickerId) {
@@ -1008,6 +1084,48 @@ function showSettingsModal() {
       var cb = card.querySelector('input[type="checkbox"]');
       cb.checked = !cb.checked;
       card.classList.toggle('active', cb.checked);
+    });
+  });
+
+  // Background grid — event delegation for selection, add, and remove
+  overlay.querySelector('#settBgGrid').addEventListener('click', function(e) {
+    // Check if remove button was clicked
+    var removeBtn = e.target.closest('.bg-thumb-remove');
+    if (removeBtn) {
+      e.stopPropagation();
+      var thumb = removeBtn.closest('.bg-thumb-custom');
+      var idx = parseInt(thumb.getAttribute('data-custom-idx'));
+      localCustomBackgrounds.splice(idx, 1);
+      renderBgGrid();
+      return;
+    }
+    // Check if add tile was clicked
+    if (e.target.closest('.bg-thumb-add')) {
+      showUrlPromptModal(function(url) {
+        localCustomBackgrounds.push(url);
+        renderBgGrid();
+      });
+      return;
+    }
+    // Otherwise, handle selection
+    var bgThumb = e.target.closest('.bg-thumb');
+    if (bgThumb) {
+      overlay.querySelectorAll('.bg-thumb').forEach(function(t) { t.classList.remove('active'); });
+      bgThumb.classList.add('active');
+    }
+  });
+
+  // Render the background grid
+  renderBgGrid();
+
+  // Tab switching
+  overlay.querySelectorAll('.settings-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      overlay.querySelectorAll('.settings-tab').forEach(function(t) { t.classList.remove('active'); });
+      overlay.querySelectorAll('.settings-tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = overlay.querySelector('.settings-tab-panel[data-tab="' + tab.getAttribute('data-tab') + '"]');
+      if (panel) panel.classList.add('active');
     });
   });
 
@@ -1028,6 +1146,18 @@ function showSettingsModal() {
       var input = overlay.querySelector('#' + id);
       if (input) s[toggleMap[id]] = input.checked;
     });
+    // Save background URL from grid selection
+    var activeBg = overlay.querySelector('.bg-thumb.active');
+    if (activeBg) s.bgUrl = activeBg.getAttribute('data-bg');
+
+    // Save custom backgrounds
+    s.customBackgrounds = localCustomBackgrounds;
+
+    // Save element color from picker
+    if (pickers.pickerElementColor && pickers.pickerElementColor.dirty) {
+      s.elementColor = pickers.pickerElementColor.getHex();
+    }
+
     // Save weather location
     if (cityInput) s.weatherCity = cityInput.value.trim();
     // Lat/lon sono salvati dal geocoding automatico
@@ -1200,6 +1330,59 @@ function init() {
   // Re-apply settings when dark mode toggles
   var observer = new MutationObserver(function () { applySettings(); });
   observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+}
+
+function showUrlPromptModal(callback) {
+  var overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML =
+    '<div class="modal-box">' +
+      '<div class="modal-header">' +
+        '<h3 class="modal-title">Add custom background</h3>' +
+        '<button class="modal-close" title="Close"><iconify-icon icon="' + ICONS.close + '"></iconify-icon></button>' +
+      '</div>' +
+      '<div class="modal-body">' +
+        '<label>Image URL <input type="text" id="promptUrlInput" placeholder="https://..." autofocus></label>' +
+      '</div>' +
+      '<div class="modal-footer">' +
+        '<button type="button" class="modal-btn modal-btn-cancel" id="promptUrlCancel"><iconify-icon icon="' + ICONS.close + '"></iconify-icon> Cancel</button>' +
+        '<button type="button" class="modal-btn modal-btn-primary" id="promptUrlAdd"><iconify-icon icon="' + ICONS.add + '"></iconify-icon> Add</button>' +
+      '</div>' +
+    '</div>';
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeOverlay(overlay);
+  });
+  overlay.querySelector('.modal-close').addEventListener('click', function() { closeOverlay(overlay); });
+  overlay.querySelector('#promptUrlCancel').addEventListener('click', function() { closeOverlay(overlay); });
+
+  overlay.querySelector('#promptUrlAdd').addEventListener('click', function() {
+    var input = overlay.querySelector('#promptUrlInput');
+    var url = input.value.trim();
+    if (url) {
+      callback(url);
+      closeOverlay(overlay);
+    } else {
+      input.focus();
+    }
+  });
+
+  overlay._keydownHandler = function(e) {
+    if (e.key === 'Enter' && !e.repeat && !overlay.classList.contains('modal-closing')) {
+      e.preventDefault();
+      overlay.querySelector('#promptUrlAdd').click();
+    }
+    if (e.key === 'Escape' && !e.repeat) {
+      closeOverlay(overlay);
+    }
+  };
+  document.addEventListener('keydown', overlay._keydownHandler);
+
+  document.body.appendChild(overlay);
+  setTimeout(function() {
+    var input = overlay.querySelector('#promptUrlInput');
+    if (input) input.focus();
+  }, 50);
 }
 
 document.addEventListener('DOMContentLoaded', init);
