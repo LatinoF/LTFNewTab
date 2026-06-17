@@ -809,7 +809,7 @@ body.dark-mode .modal-btn-danger { background: #dc3545; color: #fff; }
 body.dark-mode .modal-btn-danger:hover { background: #e44556; }
 
 /* Settings modal */
-.modal-box-settings { width: 620px; max-width: 94vw; }
+.modal-box-settings { width: 620px; max-width: 94vw; align-self: flex-start; margin-top: 20vh; }
 .modal-box-settings .modal-body { max-height: none; overflow: visible; }
 .settings-section { margin-bottom: 20px; display: flow-root; }
 .settings-section:last-child { margin-bottom: 0; }
