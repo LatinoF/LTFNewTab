@@ -6,6 +6,66 @@ const uvIndexElement = document.querySelector(".uv-index");
 const wind = document.querySelector(".wind");
 const humidity = document.querySelector(".humidity");
 
+const CACHE_KEY = 'ltf_weather_cache';
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+/**
+ * Read cached weather data from localStorage.
+ * Returns the data object if cache exists and is fresh (< 10 min old), otherwise null.
+ */
+function getCachedWeather() {
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (!cached) return null;
+
+    const parsed = JSON.parse(cached);
+    const now = Date.now();
+
+    if (now - parsed.timestamp < CACHE_DURATION) {
+      return parsed.data;
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Save weather data to localStorage with current timestamp.
+ */
+function saveWeatherCache(data) {
+  try {
+    const cacheEntry = {
+      data: data,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cacheEntry));
+  } catch (e) {
+    // localStorage may be full or unavailable — silently ignore
+  }
+}
+
+/**
+ * Update all weather UI elements from a single API response object.
+ */
+function updateWeatherUI(data) {
+  const current = data.current;
+  const daily = data.daily;
+
+  // Parse sunrise/sunset (ISO 8601 format)
+  const sunrise = new Date(daily.sunrise[0]).getTime() / 1000;
+  const sunset = new Date(daily.sunset[0]).getTime() / 1000;
+
+  const weatherCode = current.weather_code;
+  const iconPath = getWeatherIconPath(weatherCode, sunrise, sunset);
+  weatherIcon.setAttribute("src", iconPath);
+  temperature.innerHTML = `${Math.round(current.temperature_2m)}&deg;C`;
+  feelsLike.innerHTML = `${Math.round(current.apparent_temperature)}&deg;C`;
+  pressure.innerHTML = `${Math.round(current.surface_pressure)} hPa`;
+  wind.innerHTML = `${current.wind_speed_10m} km/h`;
+  humidity.innerHTML = `${current.relative_humidity_2m}%`;
+  uvIndexElement.innerHTML = Math.round(current.uv_index);
+}
 
 // function to fetch weather data and update the UI
 function fetchWeatherData() {
@@ -13,35 +73,28 @@ function fetchWeatherData() {
   const lat = settings.weatherLat || DEFAULT_SETTINGS.weatherLat;
   const lon = settings.weatherLon || DEFAULT_SETTINGS.weatherLon;
 
+  // Stale-while-revalidate: show cached data immediately if fresh
+  const cached = getCachedWeather();
+  if (cached) {
+    updateWeatherUI(cached);
+  }
+
+  // Always fetch fresh data from API in the background
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
     `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,surface_pressure,uv_index` +
     `&daily=sunrise,sunset&timezone=auto&forecast_days=1`)
     .then(response => response.json())
     .then(data => {
-      const current = data.current;
-      const daily = data.daily;
-
-      // Parse sunrise/sunset (ISO 8601 format)
-      const sunrise = new Date(daily.sunrise[0]).getTime() / 1000;
-      const sunset = new Date(daily.sunset[0]).getTime() / 1000;
-
-      const weatherCode = current.weather_code;
-      const iconPath = getWeatherIconPath(weatherCode, sunrise, sunset);
-      weatherIcon.setAttribute("src", iconPath);
-      temperature.innerHTML = `${Math.round(current.temperature_2m)}&deg;C`;
-      feelsLike.innerHTML = `${Math.round(current.apparent_temperature)}&deg;C`;
-      pressure.innerHTML = `${Math.round(current.surface_pressure)} hPa`;
-      wind.innerHTML = `${current.wind_speed_10m} km/h`;
-      humidity.innerHTML = `${current.relative_humidity_2m}%`;
-      uvIndexElement.innerHTML = Math.round(current.uv_index);
+      updateWeatherUI(data);
+      saveWeatherCache(data);
     })
     .catch(error => console.log(error));
 }
 
-// initial fetch of weather data
+// initial fetch of weather data (serves cache first, then background refresh)
 fetchWeatherData();
 
-// call fetchWeatherData() every minute
+// call fetchWeatherData() every 10 minutes
 setInterval(fetchWeatherData, 10*60000);
 
 // set weather condition icons

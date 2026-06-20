@@ -12,6 +12,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   
+  <!-- DNS prefetch for API domains -->
+  <link rel="dns-prefetch" href="https://api.open-meteo.com">
+  <link rel="dns-prefetch" href="https://geocoding-api.open-meteo.com">
+  <link rel="dns-prefetch" href="https://min-api.cryptocompare.com">
+  <link rel="dns-prefetch" href="https://static.cryptohopper.com">
+  
   <!-- Preload critical font -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" as="style">
   
@@ -32,7 +38,10 @@
         var s = JSON.parse(localStorage.getItem('ltf_settings'));
         if (s) {
           if (s.elementColor) document.documentElement.style.setProperty('--element-color', s.elementColor);
-          if (s.bgUrl) document.documentElement.style.setProperty('--bg-url', 'url(' + s.bgUrl + ')');
+          var bgUrl = s.bgUrl || '../Resources/Backgrounds/GoldenGate_Light.jpg';
+          document.documentElement.style.setProperty('--bg-url', 'url(' + bgUrl + ')');
+          // Preload background image for faster rendering
+          new Image().src = bgUrl;
         }
       } catch(e) {}
       if (localStorage.getItem('isDarkModeEnabled') === 'true') {
