@@ -25,6 +25,21 @@
 </head>
 
 <body>
+  <script>
+    // Prevent FOUC: apply saved settings before page renders
+    (function() {
+      try {
+        var s = JSON.parse(localStorage.getItem('ltf_settings'));
+        if (s) {
+          if (s.elementColor) document.documentElement.style.setProperty('--element-color', s.elementColor);
+          if (s.bgUrl) document.documentElement.style.setProperty('--bg-url', 'url(' + s.bgUrl + ')');
+        }
+      } catch(e) {}
+      if (localStorage.getItem('isDarkModeEnabled') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+    })();
+  </script>
 
   <!-- MENU BEGIN -->
   <div class="menu">
