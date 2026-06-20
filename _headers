@@ -1,0 +1,41 @@
+# Cache strategy for GitHub Pages
+# https://docs.github.com/en/pages/getting-started-with-github-pages/custom-headers-for-github-pages
+
+# All resources - 1 year cache
+# Hard refresh (Ctrl+F5) will still fetch updated files
+
+/*.jpg
+  Cache-Control: public, max-age=31536000
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000
+
+/*.png
+  Cache-Control: public, max-age=31536000
+
+/*.svg
+  Cache-Control: public, max-age=31536000
+
+/*.webp
+  Cache-Control: public, max-age=31536000
+
+/*.css
+  Cache-Control: public, max-age=31536000
+
+/*.js
+  Cache-Control: public, max-age=31536000
+
+/*.woff
+  Cache-Control: public, max-age=31536000
+
+/*.woff2
+  Cache-Control: public, max-age=31536000
+
+/*.html
+  Cache-Control: public, max-age=31536000
+
+/
+  Cache-Control: public, max-age=31536000
+
+/index.html
+  Cache-Control: public, max-age=31536000
