@@ -248,6 +248,7 @@ section {
   justify-content: center;
   scroll-snap-align: start;
   padding: 1rem;
+  contain: layout style paint;
 }
 
 .drawergrid {
@@ -255,6 +256,7 @@ section {
   grid-template-columns: 150px 150px 150px 150px 150px 150px;
   grid-template-rows: 100px 100px;
   grid-gap: 1rem;
+  contain: layout style;
 }
 
 .drawergridX3 {
@@ -262,6 +264,7 @@ section {
   grid-template-columns: 150px 150px 150px 150px 150px 150px;
   grid-template-rows: 100px 100px 100px;
   grid-gap: 1rem;
+  contain: layout style;
 }
 
 .item {

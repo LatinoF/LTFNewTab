@@ -175,6 +175,13 @@
   </div>
   <input type="file" id="fabFileInput" accept=".json" style="display:none">
   
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./JS/service_worker.js', { scope: './' }).catch(function(err) {
+        console.log('SW registration failed:', err);
+      });
+    }
+  </script>
 </body>
 
 </html>

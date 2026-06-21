@@ -4,6 +4,7 @@ const SETTINGS_KEY = 'ltf_settings';
 var _openPickerRows = [];
 let isEditMode = false;
 let dragCtx = null;
+let _delegationAttached = false;
 
 function getSites() {
   const raw = localStorage.getItem(STORAGE_KEY);
@@ -92,6 +93,54 @@ function renderDrawer() {
 
   container.classList.toggle('edit-mode', isEditMode);
 
+  // Set up delegated event listeners once (not cleared by innerHTML)
+  if (!_delegationAttached) {
+    _delegationAttached = true;
+
+    container.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      const item = e.target.closest('.item');
+      if (!item || item.classList.contains('item-add')) return;
+      if (e.target.closest('.item-controls, .item-edit, .item-del')) return;
+      onItemDown(e);
+    });
+
+    container.addEventListener('click', function (e) {
+      // Edit button
+      const editBtn = e.target.closest('.item-edit');
+      if (editBtn) {
+        e.preventDefault();
+        const item = editBtn.closest('.item');
+        if (item && item.dataset.id) {
+          const sites = getSites();
+          const site = sites.find(s => s.id === item.dataset.id);
+          if (site) showModal('edit', site);
+        }
+        return;
+      }
+
+      // Delete button
+      const delBtn = e.target.closest('.item-del');
+      if (delBtn) {
+        e.preventDefault();
+        const item = delBtn.closest('.item');
+        if (item && item.dataset.id) deleteSite(item.dataset.id);
+        return;
+      }
+
+      // Add tile
+      if (e.target.closest('.item-add')) {
+        showModal('add');
+        return;
+      }
+
+      // Edit mode: prevent navigation on tile click (not on controls)
+      if (isEditMode && e.target.closest('.item') && !e.target.closest('.item-controls')) {
+        e.preventDefault();
+      }
+    });
+  }
+
   const isX3 = container.classList.contains('drawercontainerX3');
   const perSection = isX3 ? 18 : 12;
   const sites = getSites();
@@ -109,6 +158,7 @@ function renderDrawer() {
   }
 
   container.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < totalSections; i++) {
     const secSites = sites.slice(i * perSection, (i + 1) * perSection);
@@ -125,8 +175,10 @@ function renderDrawer() {
     }
 
     sec.appendChild(grid);
-    container.appendChild(sec);
+    fragment.appendChild(sec);
   }
+
+  container.appendChild(fragment);
 }
 
 function createItem(site) {
@@ -212,12 +264,6 @@ function createItem(site) {
   div.appendChild(a);
 
   if (isEditMode) {
-    div.addEventListener('mousedown', onItemDown);
-    div.addEventListener('click', function (e) {
-      if (e.target.closest('.item-controls, .item-edit, .item-del')) return;
-      e.preventDefault();
-    });
-
     const ctrl = document.createElement('div');
     ctrl.className = 'item-controls';
 
@@ -225,14 +271,12 @@ function createItem(site) {
     eb.className = 'item-edit';
     eb.title = 'Edit';
     eb.innerHTML = '<iconify-icon icon="' + ICONS.edit + '" style="pointer-events:none"></iconify-icon>';
-    eb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); showModal('edit', site); });
     ctrl.appendChild(eb);
 
     const db = document.createElement('button');
     db.className = 'item-del';
     db.title = 'Delete';
     db.innerHTML = '<iconify-icon icon="' + ICONS.close + '" style="pointer-events:none"></iconify-icon>';
-    db.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); deleteSite(site.id); });
     ctrl.appendChild(db);
 
     div.appendChild(ctrl);
@@ -251,7 +295,6 @@ function createAddTile() {
   span.textContent = '+';
   div.appendChild(span);
 
-  div.addEventListener('click', () => showModal('add'));
   return div;
 }
 
@@ -265,7 +308,7 @@ function onItemDown(e) {
   if (e.target.closest('.item-controls, .item-edit, .item-del')) return;
   e.preventDefault();
 
-  const item = e.currentTarget;
+  const item = e.target.closest('.item');
   const rect = item.getBoundingClientRect();
   dragCtx = {
     siteId: item.dataset.id,
