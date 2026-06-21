@@ -87,6 +87,60 @@ function getTileUrl(url) {
   catch { return 'Resources/Tiles/not-available.svg'; }
 }
 
+function pickImageAsDataUrl(inputEl, skipResize) {
+  skipResize = skipResize || false;
+  
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.addEventListener('change', function() {
+    var file = input.files[0];
+    if (!file) return;
+    
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        
+        var width = img.width;
+        var height = img.height;
+        
+        // Only resize if not skipped (tiles: 512px max)
+        if (!skipResize) {
+          var maxDim = 512;
+          if (width > height) {
+            if (width > maxDim) {
+              height = (height * maxDim) / width;
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = (width * maxDim) / height;
+              height = maxDim;
+            }
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Convert to JPEG with 0.85 quality
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        inputEl.value = dataUrl;
+      };
+      img.onerror = function() {
+        inputEl.value = e.target.result;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  input.click();
+}
+
 function renderDrawer() {
   const container = document.getElementById('drawercontainer');
   if (!container) return;
@@ -719,7 +773,11 @@ function showModal(mode, site) {
           <option value="logo" ${isEdit && site.logoType === 'logo' ? 'selected' : ''}>Complete Logo</option>
           <option value="emblem" ${isEdit && site.logoType === 'emblem' ? 'selected' : ''}>Emblem Logo</option>
         </select></label>
-        <label>Logo URL <input type="text" name="logoUrl" placeholder="${isEdit && site.tile ? site.tile.split('/').pop() : 'Filename or URL'}" value="${esc(isEdit ? site.logoUrl || '' : '')}"></label>
+        <label>Logo URL</label>
+        <div class="url-row">
+          <button type="button" class="url-row-btn" title="Choose local image"><iconify-icon icon="fluent:folder-24-filled"></iconify-icon></button>
+          <input type="text" name="logoUrl" placeholder="${isEdit && site.tile ? site.tile.split('/').pop() : 'Filename or URL'}" value="${esc(isEdit ? site.logoUrl || '' : '')}">
+        </div>
         <label>Background color</label>
         <div class="color-row">
           <input type="text" class="color-hex" maxlength="7" placeholder="#0171c5">
@@ -734,6 +792,10 @@ function showModal(mode, site) {
         <button type="submit" class="modal-btn modal-btn-primary"><iconify-icon icon="${ICONS.checkmark}"></iconify-icon> ${isEdit ? 'Save' : 'Add'}</button>
       </div>
     </div>`;
+
+  overlay.querySelector('.modal-body .url-row-btn').addEventListener('click', function() {
+    pickImageAsDataUrl(overlay.querySelector('[name="logoUrl"]'));
+  });
 
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   overlay.querySelector('.modal-close').addEventListener('click', closeModal);
@@ -1385,13 +1447,21 @@ function showUrlPromptModal(callback) {
         '<button class="modal-close" title="Close"><iconify-icon icon="' + ICONS.close + '"></iconify-icon></button>' +
       '</div>' +
       '<div class="modal-body">' +
-        '<label>Image URL <input type="text" id="promptUrlInput" placeholder="https://..." autofocus></label>' +
+        '<label>Image URL</label>' +
+        '<div class="url-row">' +
+          '<button type="button" class="url-row-btn" id="promptUrlFolderBtn" title="Choose local image"><iconify-icon icon="fluent:folder-24-filled"></iconify-icon></button>' +
+          '<input type="text" id="promptUrlInput" placeholder="https://..." autofocus>' +
+        '</div>' +
       '</div>' +
       '<div class="modal-footer">' +
         '<button type="button" class="modal-btn modal-btn-cancel" id="promptUrlCancel"><iconify-icon icon="' + ICONS.close + '"></iconify-icon> Cancel</button>' +
         '<button type="button" class="modal-btn modal-btn-primary" id="promptUrlAdd"><iconify-icon icon="' + ICONS.add + '"></iconify-icon> Add</button>' +
       '</div>' +
     '</div>';
+
+  overlay.querySelector('#promptUrlFolderBtn').addEventListener('click', function() {
+    pickImageAsDataUrl(overlay.querySelector('#promptUrlInput'), true);
+  });
 
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeOverlay(overlay);
