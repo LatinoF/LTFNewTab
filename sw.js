@@ -1,5 +1,5 @@
 /* LTFNewTab Service Worker - v1.0 */
-const CACHE_NAME = 'ltf-v1';
+const CACHE_NAME = 'ltf-v2';
 
 const PRECACHE_URLS = [
   './',
