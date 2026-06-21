@@ -177,7 +177,7 @@
   
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./JS/service_worker.js', { scope: './' }).catch(function(err) {
+      navigator.serviceWorker.register('./sw.js').catch(function(err) {
         console.log('SW registration failed:', err);
       });
     }
