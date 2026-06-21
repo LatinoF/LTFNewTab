@@ -94,6 +94,7 @@
   <script>
     // Populate weather widget from cache immediately after DOM elements exist
     (function() {
+      alert('Script is running');
       console.log('Weather cache script running');
       try {
         var weatherCache = localStorage.getItem('ltf_weather_cache');
