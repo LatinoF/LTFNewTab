@@ -94,17 +94,12 @@
   <script>
     // Populate weather widget from cache immediately after DOM elements exist
     (function() {
-      alert('Script is running');
-      console.log('Weather cache script running');
       try {
         var weatherCache = localStorage.getItem('ltf_weather_cache');
-        console.log('Cache exists:', !!weatherCache);
         if (weatherCache) {
           var parsed = JSON.parse(weatherCache);
-          console.log('Cache parsed, timestamp:', parsed.timestamp, 'age:', Date.now() - parsed.timestamp);
           if (parsed.timestamp && (Date.now() - parsed.timestamp < 600000)) {
             var data = parsed.data;
-            console.log('Cache is fresh, data exists:', !!data);
             if (data && data.current) {
               var current = data.current;
               var daily = data.daily;
@@ -147,16 +142,6 @@
               var wind = document.querySelector('.wind');
               var humidity = document.querySelector('.humidity');
               
-              console.log('Elements found:', {
-                weatherIcon: !!weatherIcon,
-                temperature: !!temperature,
-                feelsLike: !!feelsLike,
-                pressure: !!pressure,
-                uvIndex: !!uvIndex,
-                wind: !!wind,
-                humidity: !!humidity
-              });
-              
               if (weatherIcon) weatherIcon.src = iconPath;
               if (temperature) temperature.innerHTML = Math.round(current.temperature_2m) + '°C';
               if (feelsLike) feelsLike.innerHTML = Math.round(current.apparent_temperature) + '°C';
@@ -164,16 +149,10 @@
               if (uvIndex) uvIndex.innerHTML = Math.round(current.uv_index);
               if (wind) wind.innerHTML = current.wind_speed_10m + ' km/h';
               if (humidity) humidity.innerHTML = current.relative_humidity_2m + '%';
-              
-              console.log('Weather populated from cache');
             }
-          } else {
-            console.log('Cache is stale');
           }
         }
-      } catch(e) {
-        console.error('Weather cache error:', e);
-      }
+      } catch(e) {}
     })();
   </script>
 
