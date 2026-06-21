@@ -47,8 +47,53 @@
       if (localStorage.getItem('isDarkModeEnabled') === 'true') {
         document.body.classList.add('dark-mode');
       }
-      
-      // Populate weather widget from cache immediately
+    })();
+  </script>
+
+  <!-- MENU BEGIN -->
+  <div class="menu">
+    <span><a href="https://latinof.github.io/LTFNewTab/">NewTab</a></span>
+    <span><a href="https://winget.run/">Apps</a></span>
+    <span><a href="https://latinof.github.io/LTFNewTab/oled">OLED Care</a></span>
+  </div>
+  <!-- Menu ENDS -->
+
+  <!-- Weather Widget BEGIN -->
+  <div class="weather-widget">
+    <img class="weather-icon" src="">
+    <span class="temperature dark"></span>
+  </div>
+  
+  <div class="weather-info">
+    <ul>
+      <li>
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/thermometer-celsius.svg">
+        <span class="feels-like"></span>
+      </li>
+      <li>
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/uv-index.svg">
+        <span class="uv-index"></span>
+      </li>
+      <li>
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/humidity.svg">
+        <span class="humidity"></span>
+      </li>
+      <li>
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/wind.svg">
+        <span class="wind"></span>
+      </li>
+      <li>
+        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/barometer.svg">
+        <span class="pressure"></span>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Weather Widget ENDS -->
+
+  <script>
+    // Populate weather widget from cache immediately after DOM elements exist
+    (function() {
       try {
         var weatherCache = JSON.parse(localStorage.getItem('ltf_weather_cache'));
         if (weatherCache && weatherCache.timestamp && (Date.now() - weatherCache.timestamp < 600000)) {
@@ -107,47 +152,6 @@
       } catch(e) {}
     })();
   </script>
-
-  <!-- MENU BEGIN -->
-  <div class="menu">
-    <span><a href="https://latinof.github.io/LTFNewTab/">NewTab</a></span>
-    <span><a href="https://winget.run/">Apps</a></span>
-    <span><a href="https://latinof.github.io/LTFNewTab/oled">OLED Care</a></span>
-  </div>
-  <!-- Menu ENDS -->
-
-  <!-- Weather Widget BEGIN -->
-  <div class="weather-widget">
-    <img class="weather-icon" src="">
-    <span class="temperature dark"></span>
-  </div>
-  
-  <div class="weather-info">
-    <ul>
-      <li>
-        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/thermometer-celsius.svg">
-        <span class="feels-like"></span>
-      </li>
-      <li>
-        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/uv-index.svg">
-        <span class="uv-index"></span>
-      </li>
-      <li>
-        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/humidity.svg">
-        <span class="humidity"></span>
-      </li>
-      <li>
-        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/wind.svg">
-        <span class="wind"></span>
-      </li>
-      <li>
-        <img src="https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/barometer.svg">
-        <span class="pressure"></span>
-      </li>
-    </ul>
-  </div>
-  
-  <!-- Weather Widget ENDS -->
 
   <!-- Dark Mode Toggle BEGIN -->
   <div class="toggle-container">
