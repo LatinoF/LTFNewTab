@@ -112,38 +112,9 @@
           var parsed = JSON.parse(weatherCache);
           if (parsed.timestamp && (Date.now() - parsed.timestamp < 600000)) {
             var data = parsed.data;
-            if (data && data.current) {
+            var iconPath = parsed.iconPath;
+            if (data && data.current && iconPath) {
               var current = data.current;
-              var daily = data.daily;
-              
-              // Calculate sunrise/sunset for icon selection
-              var sunrise = new Date(daily.sunrise[0]).getTime() / 1000;
-              var sunset = new Date(daily.sunset[0]).getTime() / 1000;
-              var currentTime = new Date().getTime() / 1000;
-              var isDaytime = currentTime >= sunrise && currentTime <= sunset;
-              
-              // Determine weather icon
-              var weatherCode = current.weather_code;
-              var baseUrl = 'https://cdn.jsdelivr.net/npm/@meteocons/svg@3.0.0-next.10/fill/';
-              var iconPath = baseUrl + 'not-available.svg';
-              
-              if (weatherCode === 0) {
-                iconPath = isDaytime ? baseUrl + 'clear-day.svg' : baseUrl + 'clear-night.svg';
-              } else if (weatherCode === 1 || weatherCode === 2) {
-                iconPath = isDaytime ? baseUrl + 'partly-cloudy-day.svg' : baseUrl + 'partly-cloudy-night.svg';
-              } else if (weatherCode === 3) {
-                iconPath = isDaytime ? baseUrl + 'overcast-day.svg' : baseUrl + 'overcast-night.svg';
-              } else if (weatherCode === 45 || weatherCode === 48) {
-                iconPath = baseUrl + 'fog.svg';
-              } else if (weatherCode >= 51 && weatherCode <= 57) {
-                iconPath = isDaytime ? baseUrl + 'partly-cloudy-day-drizzle.svg' : baseUrl + 'partly-cloudy-night-drizzle.svg';
-              } else if ((weatherCode >= 61 && weatherCode <= 67) || (weatherCode >= 80 && weatherCode <= 82)) {
-                iconPath = baseUrl + 'rain.svg';
-              } else if ((weatherCode >= 71 && weatherCode <= 77) || weatherCode === 85 || weatherCode === 86) {
-                iconPath = baseUrl + 'snow.svg';
-              } else if (weatherCode >= 95 && weatherCode <= 99) {
-                iconPath = baseUrl + 'thunderstorms.svg';
-              }
               
               // Populate weather elements
               var weatherIcon = document.querySelector('.weather-icon');
@@ -154,7 +125,10 @@
               var wind = document.querySelector('.wind');
               var humidity = document.querySelector('.humidity');
               
-              if (weatherIcon) weatherIcon.src = iconPath;
+              if (weatherIcon) {
+                weatherIcon.src = iconPath;
+                weatherIcon.onload = function() { this.classList.add('loaded'); };
+              }
               if (temperature) temperature.innerHTML = Math.round(current.temperature_2m) + '°C';
               if (feelsLike) feelsLike.innerHTML = Math.round(current.apparent_temperature) + '°C';
               if (pressure) pressure.innerHTML = Math.round(current.surface_pressure) + ' hPa';

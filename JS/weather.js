@@ -11,7 +11,7 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
 
 /**
  * Read cached weather data from localStorage.
- * Returns the data object if cache exists and is fresh (< 10 min old), otherwise null.
+ * Returns the cache entry (with data and iconPath) if cache exists and is fresh (< 10 min old), otherwise null.
  */
 function getCachedWeather() {
   try {
@@ -22,7 +22,7 @@ function getCachedWeather() {
     const now = Date.now();
 
     if (now - parsed.timestamp < CACHE_DURATION) {
-      return parsed.data;
+      return parsed;
     }
     return null;
   } catch (e) {
@@ -33,10 +33,11 @@ function getCachedWeather() {
 /**
  * Save weather data to localStorage with current timestamp.
  */
-function saveWeatherCache(data) {
+function saveWeatherCache(data, iconPath) {
   try {
     const cacheEntry = {
       data: data,
+      iconPath: iconPath,
       timestamp: Date.now()
     };
     localStorage.setItem(CACHE_KEY, JSON.stringify(cacheEntry));
@@ -48,7 +49,7 @@ function saveWeatherCache(data) {
 /**
  * Update all weather UI elements from a single API response object.
  */
-function updateWeatherUI(data) {
+function updateWeatherUI(data, iconPath) {
   const current = data.current;
   const daily = data.daily;
 
@@ -57,8 +58,9 @@ function updateWeatherUI(data) {
   const sunset = new Date(daily.sunset[0]).getTime() / 1000;
 
   const weatherCode = current.weather_code;
-  const iconPath = getWeatherIconPath(weatherCode, sunrise, sunset);
-  weatherIcon.setAttribute("src", iconPath);
+  const icon = iconPath || getWeatherIconPath(weatherCode, sunrise, sunset);
+  weatherIcon.setAttribute("src", icon);
+  weatherIcon.onload = function() { this.classList.add('loaded'); };
   temperature.innerHTML = `${Math.round(current.temperature_2m)}&deg;C`;
   feelsLike.innerHTML = `${Math.round(current.apparent_temperature)}&deg;C`;
   pressure.innerHTML = `${Math.round(current.surface_pressure)} hPa`;
@@ -76,7 +78,7 @@ function fetchWeatherData() {
   // Stale-while-revalidate: show cached data immediately if fresh
   const cached = getCachedWeather();
   if (cached) {
-    updateWeatherUI(cached);
+    updateWeatherUI(cached.data, cached.iconPath);
   }
 
   // Always fetch fresh data from API in the background
@@ -85,8 +87,13 @@ function fetchWeatherData() {
     `&daily=sunrise,sunset&timezone=auto&forecast_days=1`)
     .then(response => response.json())
     .then(data => {
-      updateWeatherUI(data);
-      saveWeatherCache(data);
+      const current = data.current;
+      const daily = data.daily;
+      const sunrise = new Date(daily.sunrise[0]).getTime() / 1000;
+      const sunset = new Date(daily.sunset[0]).getTime() / 1000;
+      const iconPath = getWeatherIconPath(current.weather_code, sunrise, sunset);
+      updateWeatherUI(data, iconPath);
+      saveWeatherCache(data, iconPath);
     })
     .catch(error => console.log(error));
 }
