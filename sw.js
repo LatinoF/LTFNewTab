@@ -1,5 +1,5 @@
-/* LTFNewTab Service Worker - v1.0 */
-const CACHE_NAME = 'ltf-v2';
+/* LTFNewTab Service Worker - v2.0 */
+const CACHE_NAME = 'ltf-v3';
 
 const PRECACHE_URLS = [
   './',
@@ -138,8 +138,30 @@ self.addEventListener('fetch', function(event) {
     return;
   }
 
-  // Same-origin local assets - cache first
+  // Same-origin requests - strategy depends on request type
   if (url.origin === self.location.origin) {
+    // Navigation requests (HTML) - network first, cache fallback
+    // Ensures inline scripts (e.g. weather cache population) are always up-to-date
+    if (event.request.mode === 'navigate') {
+      event.respondWith(
+        fetch(event.request)
+          .then(function(response) {
+            if (response && response.ok) {
+              var responseClone = response.clone();
+              caches.open(CACHE_NAME).then(function(cache) {
+                cache.put(event.request, responseClone);
+              });
+            }
+            return response;
+          })
+          .catch(function() {
+            return caches.match(event.request);
+          })
+      );
+      return;
+    }
+
+    // Static assets (JS, CSS, images) - cache first, network fallback
     event.respondWith(
       caches.match(event.request)
         .then(function(cachedResponse) {
@@ -147,7 +169,6 @@ self.addEventListener('fetch', function(event) {
             return cachedResponse;
           }
           return fetch(event.request).then(function(response) {
-            // Cache a clone of successful responses
             if (response && response.ok) {
               var responseClone = response.clone();
               caches.open(CACHE_NAME).then(function(cache) {

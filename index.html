@@ -245,6 +245,14 @@
       navigator.serviceWorker.register('./sw.js').catch(function(err) {
         console.log('SW registration failed:', err);
       });
+      // Reload page when a new Service Worker takes control
+      // This ensures the latest HTML (with inline scripts) is loaded after SW updates
+      var refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', function() {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
     }
   </script>
 </body>
