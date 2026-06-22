@@ -191,6 +191,17 @@ function renderDrawer() {
       // Edit mode: prevent navigation on tile click (not on controls)
       if (isEditMode && e.target.closest('.item') && !e.target.closest('.item-controls')) {
         e.preventDefault();
+        return;
+      }
+
+      // Normal mode: navigate to tile link
+      const item = e.target.closest('.item');
+      if (item && !item.classList.contains('item-add') && !e.target.closest('.item-controls')) {
+        const anchor = item.querySelector('a');
+        if (anchor && anchor.href) {
+          e.preventDefault();
+          window.location.href = anchor.href;
+        }
       }
     });
   }
