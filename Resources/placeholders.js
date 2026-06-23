@@ -1,0 +1,23 @@
+var PLACEHOLDERS = [
+  "Live long and prosper",
+  "Resistance is futile",
+  "Doors and corners, kid. That's where they get you",
+  "Allons-y!",
+  "Geronimo!",
+  "Exterminate!",
+  "Bow ties are cool",
+  "Don't blink",
+  "Veni Vidi Vici",
+  "The winter is coming",
+  "Its over 9000!",
+  "Hold the door!",
+  "Rules and consequences",
+  "Wibbly-wobbly, timey-wimy... stuff",
+  "We're all stories, in the end. Just make it a good one, eh?",
+  "Great Scott!",
+  "The man who passes the sentence should swing the sword",
+  "I am become Death, the destroyer of worlds",
+  "Calculations correct. Human error code eliminated",
+  "Dracarys",
+  "I want her to know it was me"
+];

@@ -81,9 +81,11 @@ function swapDuckDuckGo() {
 
 
 //Searchbar Placeholder Change
-var placeholders = ["Mah Davveroh?", "Ebberghe?", "Ghe Suggedeh?", "Tutto Positivo?"];
+var placeholders = (typeof PLACEHOLDERS !== 'undefined') ? PLACEHOLDERS : [];
 var index = 0;
+
 setInterval(function () {
+  if (placeholders.length === 0) return;
   index = (index + 1) % placeholders.length;
   var textField = document.getElementById("query");
   textField.placeholder = placeholders[index];
